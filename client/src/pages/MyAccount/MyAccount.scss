@@ -1,0 +1,160 @@
+.layout {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  
+    ._container {
+      padding: 20px;
+    }
+  
+    ._header {
+      background-color: #f8f9fa;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  
+      ._logoContainer {
+        display: flex;
+        align-items: center;
+  
+        ._plushLogo {
+          height: 40px;
+          fill: #ff7f50; // Use your brand color
+        }
+      }
+    }
+  
+    ._menu {
+      background-color: #343a40;
+      padding: 10px;
+  
+      ._menuList {
+        list-style: none;
+        padding: 0;
+  
+        ._navLinkRoot {
+          margin: 10px 0;
+  
+          ._label {
+            color: #ffffff;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  
+    ._main {
+      background-color: #ffffff;
+      padding: 20px;
+  
+      ._settingsMain {
+        ._title {
+          font-size: 24px;
+          font-weight: bold;
+          color: #343a40;
+        }
+      }
+  
+      ._tabsContainer {
+        margin: 20px 0;
+        border-bottom: 1px solid #e0e0e0;
+  
+        ._menuItem {
+          color: #007bff;
+          text-decoration: none;
+          margin-right: 20px;
+          padding-bottom: 5px;
+          border-bottom: 2px solid transparent;
+  
+          &.router-link-active {
+            border-bottom-color: #007bff;
+          }
+        }
+      }
+  
+      ._whiteBase {
+        background-color: #ffffff;
+        border: 1px solid #e0e0e0;
+        padding: 20px;
+        margin-bottom: 20px;
+  
+        ._h2 {
+          font-size: 20px;
+          font-weight: bold;
+          margin-bottom: 20px;
+        }
+  
+        ._container {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 20px;
+  
+          ._width {
+            width: 48%;
+  
+            ._inputRoot {
+              margin-bottom: 10px;
+  
+              ._label {
+                display: block;
+                margin-bottom: 5px;
+                color: #6c757d;
+              }
+  
+              ._inputWrap {
+                input {
+                  width: 100%;
+                  padding: 8px;
+                  border: 1px solid #ced4da;
+                  border-radius: 4px;
+                }
+              }
+            }
+          }
+        }
+  
+        ._btnContainer {
+          display: flex;
+          justify-content: flex-end;
+  
+          ._cancelBtn {
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            padding: 10px 20px;
+            margin-right: 10px;
+            cursor: pointer;
+          }
+  
+          ._saveBtn {
+            background-color: #007bff;
+            border: 1px solid #007bff;
+            color: #ffffff;
+            padding: 10px 20px;
+            cursor: not-allowed;
+          }
+        }
+      }
+  
+      ._mainBtn {
+        background-color: #007bff;
+        color: #ffffff;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+      }
+  
+      ._center {
+        text-align: center;
+  
+        ._header {
+          font-size: 18px;
+          margin-bottom: 10px;
+        }
+  
+        ._description {
+          margin-bottom: 20px;
+        }
+      }
+    }
+  }

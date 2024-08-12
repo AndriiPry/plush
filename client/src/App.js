@@ -9,6 +9,7 @@ import Create from "./pages/Create/Create";
 import LoginPage from "./pages/LoginPage/LoginPage"
 import SignUp from "./pages/SignUp/SignUp"
 import PasswordReset from "./pages/PasswordReset/PasswordReset"
+import MyAccount from "./pages/MyAccount/MyAccount"
 import "./app.scss"
 
 const Layout = () => {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: "/passwordreset",
         element: <PasswordReset />,
+      },
+      {
+        path: "/myaccount",
+        element: <MyAccount />,
       },
     ],
   },
