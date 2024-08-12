@@ -6,6 +6,9 @@ import Home from "./pages/Home/Home";
 import Product from "./pages/Product/Product";
 import Products from "./pages/Products/Products";
 import Create from "./pages/Create/Create";
+import LoginPage from "./pages/LoginPage/LoginPage"
+import SignUp from "./pages/SignUp/SignUp"
+import PasswordReset from "./pages/PasswordReset/PasswordReset"
 import "./app.scss"
 
 const Layout = () => {
@@ -38,6 +41,18 @@ const router = createBrowserRouter([
       {
         path: "/create",
         element: <Create />,
+      },
+      {
+        path: "/loginpage",
+        element: <LoginPage />,
+      },
+      {
+        path: "/signup",
+        element: <SignUp />,
+      },
+      {
+        path: "/passwordreset",
+        element: <PasswordReset />,
       },
     ],
   },

@@ -35,6 +35,8 @@ const Navbar = () => {
         
         <div className="right">
           <div className="icons">
+            <Link className="link" to="/LoginPage">Sign In/Up</Link>
+            
             <PersonOutlineOutlinedIcon />
             <div className="cartIcon" onClick={() => setOpen(!open)}>
               <ShoppingCartOutlinedIcon />
