@@ -1,7 +1,13 @@
 import React from 'react';
 import './SignUp.scss';
+import { Typography } from '@mui/material';
+import { validateEmail, validatePassword } from '../../utils/helper';
 
-function SignUp() {
+function SignUp({
+  formData, 
+  setFormData,
+  handleSubmit,
+  loading,}) {
   return (
     <div className="layout">
       <div className="leftSideBar">
@@ -43,14 +49,38 @@ function SignUp() {
                   <div className="text">or</div>
                   <div className="line"></div>
                 </div>
-                <form className="w-100">
+                <form 
+                className="w-100"
+                onSubmit={(e) => {e.preventDefault();  handleSubmit(e)  }}
+                >
                   <div className="formField marginBottom">
+                    <Typography variant="subtitle1" color={"red"}>
+                      {formData.err}{" "}
+                    </Typography>
                     <div className="root">
                       <label htmlFor="full-name" className="label">
                         <span>Full name (will be used for the shipment)</span>
                       </label>
                       <div className="inputWrap">
-                        <input type="text" name="fullName" autoComplete="name" id="full-name" required />
+                        <input 
+                          type="text" 
+                          name="fullName" 
+                          autoComplete="name" 
+                          id="full-name" 
+                          validate={() => {
+                            return (formData.fullName && formData.fullName !== "") ? true : "Full name is required."
+                          }}
+                          disabled={loading}
+                          value={formData.fullName}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              err: "",
+                              fullName: e.target.value,
+                            })
+                          }
+                          required 
+                        />
                       </div>
                     </div>
                   </div>
@@ -61,7 +91,29 @@ function SignUp() {
                           <span>Email address</span>
                         </label>
                         <div className="inputWrap">
-                          <input type="email" name="email" autoComplete="email" id="email-address" required />
+                          <input 
+                          type="email" 
+                          name="email" 
+                          autoComplete="email" 
+                          id="email-address" 
+                          validate={() => {
+                            if (!formData.emailId || formData.emailId == "") {
+                              return "Email is required."
+                            } else if (!validateEmail(formData.emailId)) {
+                              return "Invalid Email."
+                            }
+                            return true
+                          }}
+                          disabled={loading}
+                          value={formData.emailId}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              err: "",
+                              emailId: e.target.value,
+                            })
+                          }
+                          required />
                         </div>
                       </div>
                     </div>
@@ -73,7 +125,29 @@ function SignUp() {
                           <span>Password</span>
                         </label>
                         <div className="inputWrap">
-                          <input type="password" name="password" autoComplete="new-password" id="form-input-2" required />
+                          <input 
+                            type="password" 
+                            name="password" 
+                            autoComplete="new-password" 
+                            id="form-input-2" 
+                            validate={() => {
+                              if (!formData.password || formData.password == "") {
+                                return "Password is required."
+                              } else if (!validatePassword(formData.password)) {
+                                return "Invalid Password."
+                              }
+                              return true
+                            }}
+                            disabled={loading}
+                            value={formData.password}
+                            onChange={(e) =>
+                              setFormData({
+                                ...formData,
+                                err: "",
+                                password: e.target.value,
+                              })
+                            }
+                            required />
                         </div>
                       </div>
                       <div className="formField__passwordEye">
@@ -84,7 +158,7 @@ function SignUp() {
               
                   <div>
                     <div className="button main">
-                      <button disabled type="submit" className="w-100 btn_auth"> Sign me up </button>
+                      <button type="submit" className="w-100 btn_auth"> Sign me up </button>
                     </div>
                   </div>
                   <div className="tos">

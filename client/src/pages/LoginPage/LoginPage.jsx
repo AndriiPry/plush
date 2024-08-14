@@ -3,7 +3,7 @@ import './LoginPage.scss';
 
 const LoginPage = () => {
   return (
-    <div className="layout">
+     <div className="layout">
       <div className="leftSideBar">
         <div className="leftSideContainer">
           <div className="header">
