@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
     <PersistGate loading={"loading"} persistor={persistor}>
-    <GoogleOAuthProvider clientId="863932158830-tjbu9gcpos7i812t5ive5rah4iehq2if.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId="91801064518-18np44en95ie50ajs67gp6lsu725gr7h.apps.googleusercontent.com">
       <App />
       </GoogleOAuthProvider>
     </PersistGate>
