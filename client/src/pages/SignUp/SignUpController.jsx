@@ -5,32 +5,33 @@ import { useDispatch } from 'react-redux'
 import { callSnackBar } from '../../redux/actions/snackbarAction'
 import { SNACK_BAR_VARIETNS } from '../../utils/constants'
 import useFetch from '../../hooks/useFetch'
+import { callApiAction } from '../../redux/actions/commonAction'
+import { addUserApi } from '../../api/user.api'
 
 function SignUpController() {
     const defaultFormData = {
         err : '',
-        fullName : '',
-        emailId: '',
+        username : '',
+        email: '',
         password: '',
     }
     const [formData, setFormData] = useState(defaultFormData)
-    console.log("formdata", formData)
     const [loading, setLoading] = useState(false)
     const dispatch = useDispatch();
 
     const getValidationSchema = () => {
         return [
           {
-            field: 'fullName',
+            field: 'username',
             name: "Name",
             required: true,
           },
           {
-            field : 'emailId',
+            field : 'email',
             name: "Email",
             required : true,
             validate : () => {
-              if (!validateEmail(formData.emailId)) {
+              if (!validateEmail(formData.email)) {
                 return "Invalid Email."
               }
               return true
@@ -49,22 +50,34 @@ function SignUpController() {
           },
         ]
     }
-
-    const AddUser = async (e) => {
+    const addUser = async (e) => {
         e.preventDefault()
-        setLoading(true);
-        const { data, loading, error } = useFetch(
-            `/sub-categories?[filters][categories][id][$eq]`
-        );
-        if(error) {
-            setLoading(false)
-            setFormData({ ...formData, err : error })
-            dispatch(callSnackBar(toTitleCase( error), SNACK_BAR_VARIETNS.error))
-        } else {
-            setLoading(false)
-            setFormData(defaultFormData)
-        }
-    }
+            setLoading(true)
+            const dataToBepassed = {}
+            for (let item in formData) {
+                if (formData[item] && formData[item] !== '') {
+                    dataToBepassed[item] = formData[item]
+                }
+            }
+    
+            dispatch(
+              callApiAction(
+                  async () =>  await addUserApi(dataToBepassed),
+                  (response) => {
+                    console.log("response of api", response)
+                    setLoading(false)
+                    setFormData(defaultFormData)
+                  },
+                  (err) => {
+                    console.log("error of api")
+                      setLoading(false)
+                      setFormData({ ...formData, err })
+                  }
+              )
+            )
+      }
+    // dispatch(callSnackBar(toTitleCase( error), SNACK_BAR_VARIETNS.error))
+       
 
     const createFunction = async (e) => {
         const requiredFields = getValidationSchema();
@@ -90,12 +103,11 @@ function SignUpController() {
             }
           }
           if (!hasError ) {
-            AddUser((e))
+            addUser((e))
           }
       }
 
       const handleSubmit = async (e) => {
-        console.log("Handle submit called")
         createFunction(e)
       }
 

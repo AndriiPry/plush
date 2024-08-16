@@ -64,19 +64,19 @@ function SignUp({
                       <div className="inputWrap">
                         <input 
                           type="text" 
-                          name="fullName" 
+                          name="username" 
                           autoComplete="name" 
                           id="full-name" 
                           validate={() => {
-                            return (formData.fullName && formData.fullName !== "") ? true : "Full name is required."
+                            return (formData.username && formData.username !== "") ? true : "Full name is required."
                           }}
                           disabled={loading}
-                          value={formData.fullName}
+                          value={formData.username}
                           onChange={(e) =>
                             setFormData({
                               ...formData,
                               err: "",
-                              fullName: e.target.value,
+                              username: e.target.value,
                             })
                           }
                           required 
@@ -97,20 +97,20 @@ function SignUp({
                           autoComplete="email" 
                           id="email-address" 
                           validate={() => {
-                            if (!formData.emailId || formData.emailId == "") {
+                            if (!formData.email || formData.email == "") {
                               return "Email is required."
-                            } else if (!validateEmail(formData.emailId)) {
+                            } else if (!validateEmail(formData.email)) {
                               return "Invalid Email."
                             }
                             return true
                           }}
                           disabled={loading}
-                          value={formData.emailId}
+                          value={formData.email}
                           onChange={(e) =>
                             setFormData({
                               ...formData,
                               err: "",
-                              emailId: e.target.value,
+                              email: e.target.value,
                             })
                           }
                           required />
