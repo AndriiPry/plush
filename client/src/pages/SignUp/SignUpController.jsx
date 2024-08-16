@@ -64,12 +64,10 @@ function SignUpController() {
               callApiAction(
                   async () =>  await addUserApi(dataToBepassed),
                   (response) => {
-                    console.log("response of api", response)
                     setLoading(false)
                     setFormData(defaultFormData)
                   },
                   (err) => {
-                    console.log("error of api")
                       setLoading(false)
                       setFormData({ ...formData, err })
                   }
