@@ -3,22 +3,26 @@ import "./Card.scss";
 import { Link } from "react-router-dom";
 
 const Card = ({ item }) => {
-  console.log(item);
+  const finalUrl = process.env.REACT_APP_IMAGE_ACCESS_URL + item?.attributes?.img?.data?.attributes?.url
+  console.log("image url",   item?.attributes?.img?.data?.attributes?.url);
+  console.log("upload url", process.env.REACT_APP_UPLOAD_URL +  item?.attributes?.img?.data?.attributes?.url);
+  console.log("finalurl", finalUrl)
   return (
     <Link className="link" to={`/product/${item.id}`}>
       <div className="card">
         <div className="image">
           {item?.attributes.isNew && <span>New Arrival</span>}
+          {item?.attributes?.img?.data?.attributes?.url && (
           <img
-            src={
-              process.env.REACT_APP_UPLOAD_URL + item.attributes?.img?.data?.attributes?.url
-            }
+            src = {`${process.env.REACT_APP_IMAGE_ACCESS_URL + item.attributes?.img?.data?.attributes?.url}`}
+            
             alt=""
             className="mainImg"
           />
+          )}
           <img
             src={
-              process.env.REACT_APP_UPLOAD_URL + item.attributes?.img2?.data?.attributes?.url
+              process.env.REACT_APP_IMAGE_ACCESS_URL + item.attributes?.img2?.data?.attributes?.url
             }
             alt=""
             className="secondImg"

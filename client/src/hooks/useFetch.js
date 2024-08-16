@@ -5,6 +5,7 @@ const useFetch = (url) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  console.log("env data in usefetch", process.env.REACT_APP_API_URL)
 
   useEffect(() => {
     const fetchData = async () => {

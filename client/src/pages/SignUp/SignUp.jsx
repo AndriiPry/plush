@@ -2,6 +2,7 @@ import React from 'react';
 import './SignUp.scss';
 import { Typography } from '@mui/material';
 import { validateEmail, validatePassword } from '../../utils/helper';
+import { GoogleLogin } from '@react-oauth/google';
 
 function SignUp({
   formData, 
@@ -39,7 +40,16 @@ function SignUp({
                   <div className="root">
                     <div>
                       <div id="googleSignupButton">
-                        <h2>Google sign up button</h2>
+                      <div id="googleSignupButton">
+                    <GoogleLogin
+                      onSuccess={(credentialResponse) => {
+                        console.log(credentialResponse);
+                      }}
+                      onError={() => {
+                        console.log("Login Failed");
+                      }}
+                    />
+                  </div>
                       </div>
                     </div>
                   </div>

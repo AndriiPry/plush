@@ -8,3 +8,4 @@ export const SNACK_BAR_VARIETNS = {
 export const actions = {
     CALL_SNACKBAR_DATA: "CALL_SNACKBAR_DATA",
 }
+

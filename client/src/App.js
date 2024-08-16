@@ -73,6 +73,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  console.log("env data in app.js", process.env.REACT_APP_API_URL)
   return (
     <div>
       <RouterProvider router={router} />
