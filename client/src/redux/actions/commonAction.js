@@ -1,6 +1,7 @@
 
 import { SNACK_BAR_VARIETNS } from "../../utils/constants"
 import { callSnackBar } from "./snackbarAction"
+import { signOutAction } from "./userReducerAction"
 
 
 
@@ -15,13 +16,18 @@ export const callApiAction = (asyncFun, onSuccess = () => { }, onError = () => {
                 if (response?.response?.data?.error?.status == 400) {
                     onError(response.response.data.error.message)
                     return
-                }else {
+                }
+                else {
                     await onSuccess(response)
                 }
             } else {
                 if(response.errorMessage) {
                     onError(response.errorMessage)
                 }
+             else if (response.code === 403) {
+                dispatch(callSnackBar("Your session has expired due to unautherized access", SNACK_BAR_VARIETNS.error))
+                dispatch(signOutAction())
+            }
                 else if(response.error) {
                     onError(response.error.message)
                 }

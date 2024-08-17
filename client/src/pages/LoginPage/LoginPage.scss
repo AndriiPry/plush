@@ -49,18 +49,26 @@
   
   .content {
     flex-grow: 1;
+    width: 60%;
+    height: 110%;
     display: flex;
     align-items: center;
     justify-content: center;
-    // padding: 20px;
     background-color: #fff;
-    margin-top: 100px; 
+    margin-top: -778px;
+    // margin-bottom: 1000px;
+    margin-left : 540px;
+    // background-color: red;  
   
   
   .authParent {
     width: 100%;
   }
-  
+  .innerView
+  {
+    margin-bottom: 255px;
+    // background-color: red;
+  }
   .authHeader {
     font-size: 28px;
     font-weight: bold;

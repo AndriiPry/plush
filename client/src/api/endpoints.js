@@ -12,6 +12,7 @@ switch (mode) {
 const endpoints ={
   root:domain,
   registerUser : `${domain}api/auth/local/register`,
+  signIn : `${domain}api/auth/local`
 }
 
 export default endpoints
