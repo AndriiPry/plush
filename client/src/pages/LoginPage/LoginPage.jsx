@@ -1,8 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './LoginPage.scss';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { storeUser } from '../../utils/helper';
 
 
+const initialUser = {password : "" , email : ""};
 const LoginPage = () => {
+  const[user , setUser] = useState(initialUser);
+  const navigate = useNavigate();
+
+  const handleChange = ({target}) =>{ 
+    const {name , value} = target;
+    setUser((currentUser) => ({
+      ...currentUser,
+      [name] : value,
+    }
+    ))
+
+  }
+
+  const handleLogin = async () =>{
+    const url = `http://localhost:1337/api/auth/local`;
+    try{
+      if(user.email && user.password)
+      {
+        const {data} = axios.post(url , user);
+        // console.log({data})
+        if(data.jwt)
+        {
+          storeUser(data)
+          console.log("login successfull");
+        }
+        setUser(initialUser);
+        navigate("/");
+      }
+    } 
+    catch(err)
+    {
+      console.log(err);
+    }
+
+  }
+  
   return (
     <div className="layout">
       <div className="leftSideBar">
@@ -18,6 +58,8 @@ const LoginPage = () => {
           </div>
         </div>
       </div>
+     
+     
       <div className="content">
         <div className="authParent">
           <div className="d-flex justify-content-center h-100 w-100">
@@ -48,14 +90,18 @@ const LoginPage = () => {
                 <form className="w-100">
                   <div className="formField">
                     <label htmlFor="email-address" className="label"><span>Email address</span></label>
+                   
+                   
                     <div className="inputWrap">
-                      <input type="email" name="email" autoComplete="email" id="email-address" required />
+                      <input type="email" name="email" value={user.email} onChange={handleChange} autoComplete="email" id="email-address" required />
                     </div>
                   </div>
                   <div className="formField">
                     <label htmlFor="form-input-1" className="label"><span>Password</span></label>
+                  
+                  
                     <div className="inputWrap">
-                      <input type="password" name="password" autoComplete="current-password" id="form-input-1" required />
+                      <input type="password" name="password" value={user.password} onChange={handleChange} autoComplete="current-password" id="form-input-1" required />
                     </div>
                   </div>
                   <label className="checkboxContainer">
@@ -63,7 +109,7 @@ const LoginPage = () => {
                     <span>Keep me logged in</span>
                   </label>
                   <div>
-                    <button type="submit" className="btn_auth">Log in</button>
+                    <button className="btn_auth" onClick={handleLogin}>Log in</button>
                   </div>
                   <div className="forgotPassword">
                     <a href="/passwordreset" className="textButton">Forgot password?</a>

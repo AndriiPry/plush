@@ -1,3 +1,7 @@
+html, body {
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
 .layout {
     display: flex;
     height: 100vh;
@@ -46,12 +50,16 @@
   }
   
   .content {
-    width: 70%;
+    align-items: center;
+    background-color: #f4f6f8;
+    width: 50%;
     display: flex;
     justify-content: center;
-    align-items: center;
-    background-color: #ffffff;
-  
+    margin-top: -685px; 
+    margin-left: 380px;
+    margin-bottom: 50px; 
+
+
     .authParent {
       width: 100%;
       max-width: 500px;
