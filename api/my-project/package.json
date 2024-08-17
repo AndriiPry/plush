@@ -14,7 +14,10 @@
     "@strapi/plugin-cloud": "4.25.1",
     "@strapi/plugin-i18n": "4.25.1",
     "@strapi/plugin-users-permissions": "4.25.1",
+<<<<<<< HEAD
     "@strapi/provider-email-sendgrid": "^4.25.8",
+=======
+>>>>>>> 538c6057af5d8e27878bea02c74e08b1891396a1
     "@strapi/strapi": "4.25.1",
     "pg": "8.8.0",
     "react": "^18.0.0",

@@ -21,7 +21,7 @@ const LoginPage = () => {
   }
 
   const handleLogin = async () =>{
-    const url = `http://localhost:1337/api/auth/local`;
+    const url = `http://localhost:1337/api/auth/`;
     try{
       if(user.email && user.password)
       {
@@ -44,7 +44,7 @@ const LoginPage = () => {
   }
   
   return (
-    <div className="layout">
+     <div className="layout">
       <div className="leftSideBar">
         <div className="leftSideContainer">
           <div className="header">
