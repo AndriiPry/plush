@@ -66,13 +66,12 @@ function SignUpController() {
             };
             
             console.log(decoded);
-            setShowPasswordForm(true); 
     
             setLoading(true);
             await dispatch(callApiAction(
                 async () => await addUserApi(googleUserData),
                 (response) => {
-                    console.log("response",response)
+                    setShowPasswordForm(true); 
                     setResData(response.data);
                     setLoading(false);
                     setFormData(defaultFormData);

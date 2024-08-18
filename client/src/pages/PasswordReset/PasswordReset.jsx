@@ -1,60 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './PasswordReset.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { callApiAction } from '../../redux/actions/commonAction';
-import { getUserByEmailApi } from '../../api/user.api';
-import { toTitleCase, validateEmail } from '../../utils/helper';
-import { SNACK_BAR_VARIETNS } from '../../utils/constants';
-import { callSnackBar } from '../../redux/actions/snackbarAction';
+import { Typography } from '@mui/material';
 
-const PasswordReset = () => {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const {user} = useSelector(state => state)
-  const defaultFormData = {
-    email : '',
-    err  :''
-  }
-  const[loading, setLoading] = useState(false)
-  const [formData, setFormData] = useState(defaultFormData)
-  useEffect(() => {
-    if(user.isLoggedIn) {
-      navigate('/verifyOTP')
-    }
-  },[])
-  const verifyUserEmail = async (e) => {
-    e.preventDefault()
-    if(formData.email == "") {
-      setFormData({
-        ...formData,
-        err : "Email is required"
-      })
-      dispatch(callSnackBar("Email is required", SNACK_BAR_VARIETNS.error))
-    }
-    else if (!validateEmail(formData.email)) {
-      setFormData({
-        ...formData,
-        err : "Email is invalid"
-      })
-      dispatch(callSnackBar("Email is invalid", SNACK_BAR_VARIETNS.error))
-    } else {
-        setLoading(true)
-        dispatch(
-          callApiAction(
-              async () =>  await getUserByEmailApi(formData.email),
-              (response) => {
-                setLoading(false)
-                setFormData(defaultFormData) 
-              },
-              (err) => {
-                  setLoading(false)
-                  setFormData({ ...formData, err })
-              }
-          )
-        )
-    }
-  }
+const PasswordReset = ({
+  formData,
+  setFormData,
+  loading,
+  verifyUserEmail
+}) => {
+  
   return (
     <div className="layout flexLayout">
       <div className="leftSideBar">
@@ -106,6 +60,9 @@ const PasswordReset = () => {
                           <label htmlFor="email-address" className="label">
                             <span>Work email address</span>
                           </label>
+                          <Typography variant="subtitle1" color={'red'}>
+                              {formData.err}{' '}
+                          </Typography>
                           <div className="inputWrap">
                             <input
                               type="email"

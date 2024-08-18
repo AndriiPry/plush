@@ -16,6 +16,7 @@ const endpoints ={
   confirmationEmail : `${domain}api/auth/send-email-confirmation`,
   signIn : `${domain}api/auth/local`,
   getUser : `${domain}api/users`,
+  sendEmail : `${domain}api/email`
 }
 
 export default endpoints

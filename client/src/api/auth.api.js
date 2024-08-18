@@ -12,3 +12,14 @@ export const signInApi = async data => {
     .catch(err => (err.response ? err.response.data : {}));
   return callResponse;
 };
+
+export const sendResetPasswordEmailApi = async (data) => {
+  const callResponse = await axios({
+    url: endpoints.sendEmail,
+    method: "POST",
+    data,
+  })
+    .then(response => response)
+    .catch(err => err);
+  return callResponse;
+}
