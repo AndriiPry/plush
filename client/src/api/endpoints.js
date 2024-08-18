@@ -12,6 +12,8 @@ switch (mode) {
 const endpoints ={
   root:domain,
   registerUser : `${domain}api/auth/local/register`,
+  updateUser : `${domain}api/users`,
+  confirmationEmail : `${domain}api/auth/send-email-confirmation`,
 }
 
 export default endpoints

@@ -168,7 +168,7 @@ function SignUp({
               
                   <div>
                     <div className="button main">
-                      <button type="submit" className="w-100 btn_auth"> Sign me up </button>
+                      <button type="submit" disabled={loading} className="w-100 btn_auth"> Sign me up </button>
                     </div>
                   </div>
                   <div className="tos">

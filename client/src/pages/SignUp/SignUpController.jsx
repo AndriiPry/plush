@@ -6,7 +6,7 @@ import { callSnackBar } from '../../redux/actions/snackbarAction'
 import { SNACK_BAR_VARIETNS } from '../../utils/constants'
 import useFetch from '../../hooks/useFetch'
 import { callApiAction } from '../../redux/actions/commonAction'
-import { addUserApi } from '../../api/user.api'
+import { addUserApi, sendConfirmEmailApi, updateUserApi } from '../../api/user.api'
 
 function SignUpController() {
     const defaultFormData = {
@@ -50,6 +50,7 @@ function SignUpController() {
           },
         ]
     }
+
     const addUser = async (e) => {
         e.preventDefault()
             setLoading(true)
@@ -66,11 +67,45 @@ function SignUpController() {
                   (response) => {
                     setLoading(false)
                     setFormData(defaultFormData)
+                    updateUser(response?.data)
+                    console.log(response) // jwt = response.data.jwt, id = response.data.user.id 
                   },
                   (err) => {
                       setLoading(false)
                       setFormData({ ...formData, err })
                   }
+              )
+            )
+      }
+
+      const updateUser = async (data) => {
+        const dataToBepassed = {
+          confirmed : false,
+        }
+        dispatch(
+          callApiAction(
+            async () =>  await updateUserApi(data?.user?.id, dataToBepassed, data?.jwt),
+              (response) => {
+                sendConfirmationEmail(data?.user?.email)
+                },
+                (err) => {
+                }
+              )
+            )
+      }
+
+      const sendConfirmationEmail = async (email) => {
+        const dataToBepassed = {
+          email : email,
+        }
+        dispatch(
+          callApiAction(
+            async () =>  await sendConfirmEmailApi(dataToBepassed),
+              (response) => {
+                dispatch(callSnackBar(toTitleCase("Please Verify your email"), SNACK_BAR_VARIETNS.suceess))
+                },
+                (err) => {
+                }
               )
             )
       }
