@@ -6,10 +6,10 @@ import LoginPage from "./LoginPage";
 import { signInAction } from "../../redux/actions/userReducerAction";
 import useValidate from "../../hooks/useValidator";
 import { callSnackBar } from "../../redux/actions/snackbarAction";
-import { SNACK_BAR_VARIETNS } from "../../utils/constants";
-import { sendConfirmEmailApi } from "../../api/user.api";
-import { toTitleCase } from "../../utils/helper";
 import { callApiAction } from "../../redux/actions/commonAction";
+import { toTitleCase } from "../../utils/helper";
+import { sendConfirmEmailApi } from "../../api/user.api";
+import { SNACK_BAR_VARIETNS } from "../../utils/constants";
 
 
 const LoginPageController = () => {
@@ -18,13 +18,6 @@ const LoginPageController = () => {
     const validate = useValidate();
     const navigate = useNavigate();
 
-
-    // const handleGoogleLoginSuccess = (credentialResponse) => {
-    //     const decoded = jwtDecode(credentialResponse.credential);
-    //     console.log("decode", decoded);
-    //     console.log(credentialResponse);
-    //     navigate("/myaccount");
-    //   };
 
     const [loading, setLoading] = useState(false);
 
@@ -120,8 +113,6 @@ const LoginPageController = () => {
             setState={setState}
             onSubmit={onSubmit}
             loading={loading}
-            sendVerificationMail={sendVerificationMail}
-            // handleGoogleLoginSuccess={handleGoogleLoginSuccess}
         />
     );
 };

@@ -2,12 +2,16 @@ import React from 'react';
 import './SignUp.scss';
 import { Typography } from '@mui/material';
 import { validateEmail, validatePassword } from '../../utils/helper';
+import { GoogleLogin } from '@react-oauth/google';
 
 function SignUp({
   formData,
   setFormData,
   handleSubmit,
   loading,
+  handleGoogleLoginSuccess,
+  showPasswordForm,
+  handlePasswordUpdate,
 }) {
   return (
     <div className="layout">
@@ -28,6 +32,44 @@ function SignUp({
           </div>
         </div>
       </div>
+      {showPasswordForm ? (
+                <div className="passwordForm">
+                    <form
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            handlePasswordUpdate(e);
+                        }}
+                    >
+                        <div className="formField marginBottom">
+                            <label htmlFor="new-password">New Password</label>
+                            <input
+                                type="password"
+                                name="newPassword"
+                                id="new-password"
+                                value={formData.password}
+                                onChange={(e) =>
+                                  setFormData({ ...formData, password: e.target.value })
+                                }
+                                required
+                            />
+                        </div>
+                        <div className="formField marginBottom">
+                            <label htmlFor="confirm-password">Confirm Password</label>
+                            <input
+                                type="password"
+                                name="confirmPassword"
+                                id="confirm-password"
+                                value={formData.confirmPassword}
+                                onChange={(e) =>
+                                    setFormData({ ...formData, confirmPassword: e.target.value })
+                                }
+                                required
+                            />
+                        </div>
+                        <button type="submit">Create Password</button>
+                    </form>
+                </div>
+            ) : (
       <div className="content">
         <div className="authParent">
           <div className="d-flex justify-content-center h-100 w-100">
@@ -47,6 +89,16 @@ function SignUp({
                   Log in now
                 </a>
               </div>
+              <div className="root">
+                    <div id="googleSignupButton">
+                     <GoogleLogin
+                        onSuccess={handleGoogleLoginSuccess}
+                        onError={() => {
+                          console.log("Login Failed");
+                        }}
+                      />
+                    </div>
+                  </div>
               <div className="d-flex flex-column align-items-center justify-content-center w-100 formMargins">
                 
                 <div className="w-100 breaker">
@@ -141,11 +193,10 @@ function SignUp({
                       </div>
                     </div>
                   </div>
-              
-                  <div>
-                    <div className="button main">
-                      <button type="submit" disabled={loading} className="w-100 btn_auth"> Sign me up </button>
-                    </div>
+                  <div className="button main">
+                    <button type="submit" className="w-100 btn_auth">
+                      Sign me up
+                    </button>
                   </div>
                   <div className="tos">
                     By signing up, I agree to the{' '}
@@ -171,6 +222,8 @@ function SignUp({
           </div>
         </div>
       </div>
+      )
+    }
     </div>
   );
 }

@@ -9,8 +9,6 @@ export const callApiAction = (asyncFun, onSuccess = () => { }, onError = () => {
 
     return async (dispatch, getState) => {
         try {
-
-
             const response = await asyncFun()
             if (response) {
                 if (response?.response?.data?.error?.status == 400) {
@@ -45,6 +43,7 @@ export const callApiAction = (asyncFun, onSuccess = () => { }, onError = () => {
         } catch (e) {
             console.log(e)
             onError(e.message)
+            console.log("andi mandi", e)
             dispatch(callSnackBar("OOPS! Something went wrong", SNACK_BAR_VARIETNS.error))
         }
     }
