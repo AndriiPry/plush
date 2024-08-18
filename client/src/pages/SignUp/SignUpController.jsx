@@ -4,7 +4,6 @@ import { toTitleCase, validateEmail, validatePassword } from '../../utils/helper
 import { useDispatch } from 'react-redux'
 import { callSnackBar } from '../../redux/actions/snackbarAction'
 import { SNACK_BAR_VARIETNS } from '../../utils/constants'
-import useFetch from '../../hooks/useFetch'
 import { callApiAction } from '../../redux/actions/commonAction'
 import { addUserApi, sendConfirmEmailApi, updateUserApi } from '../../api/user.api'
 

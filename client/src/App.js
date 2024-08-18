@@ -6,13 +6,13 @@ import Home from "./pages/Home/Home";
 import Product from "./pages/Product/Product";
 import Products from "./pages/Products/Products";
 import Create from "./pages/Create/Create";
-import LoginPage from "./pages/LoginPage/LoginPage"
 import PasswordReset from "./pages/PasswordReset/PasswordReset"
 import MyAccount from "./pages/MyAccount/MyAccount"
 import "./app.scss"
 import SignUpController from "./pages/SignUp/SignUpController";
 import { useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
+import LoginPageController from "./pages/LoginPage/LoginPageController";
 
 const Layout = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -54,7 +54,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/loginpage",
-        element: <LoginPage />,
+        element: <LoginPageController />,
       },
       {
         path: "/signup",

@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "email_verifications",
+  "info": {
+    "singularName": "email-verification",
+    "pluralName": "email-verifications",
+    "displayName": "EmailVerification"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "completed": {
+      "type": "boolean"
+    }
+  }
+}
