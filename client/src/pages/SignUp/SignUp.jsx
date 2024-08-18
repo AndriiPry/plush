@@ -195,10 +195,11 @@ function SignUp({
                       </div>
                     </div>
                   </div>
-                  <div className="button main">
-                    <button type="submit" className="w-100 btn_auth">
-                      Sign me up
-                    </button>
+              
+                  <div>
+                    <div className="button main">
+                      <button type="submit" disabled={loading} className="w-100 btn_auth"> Sign me up </button>
+                    </div>
                   </div>
                   <div className="tos">
                     By signing up, I agree to the{' '}

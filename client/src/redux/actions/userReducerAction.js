@@ -9,8 +9,10 @@ export const signInAction = (data, onError,onSuccess) => {
         dispatch(callApiAction(
             async () => await signInApi(data),
             (response) => {
-                dispatch({ type: actions.SIGN_IN, value: response })
-                onSuccess()
+                if(response?.user?.confirmed) {
+                    dispatch({ type: actions.SIGN_IN, value: response })
+                }
+                onSuccess(response)
             },
             (err) => {
                 

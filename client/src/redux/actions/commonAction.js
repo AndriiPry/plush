@@ -14,8 +14,11 @@ export const callApiAction = (asyncFun, onSuccess = () => { }, onError = () => {
             const response = await asyncFun()
             if (response) {
                 if (response?.response?.data?.error?.status == 400) {
-                    onError(response.response.data.error.message)
+                    onError(response?.response?.data?.error?.message)
                     return
+                }
+                else if(response?.error?.status == 400) {
+                    onError(response?.error?.message)
                 }
                 else {
                     await onSuccess(response)

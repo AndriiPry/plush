@@ -1,6 +1,7 @@
 import React from "react";
 import "./LoginPage.scss";
 import { GoogleLogin } from "@react-oauth/google";
+import { Typography } from "@mui/material";
 
 function LoginPage({
   state,
@@ -8,6 +9,7 @@ function LoginPage({
   onSubmit,
   handleGoogleLoginSuccess,
   handleGoogleLogout,
+  sendVerificationMail,
 }) {
   return (
     <div className="layout">
@@ -65,6 +67,15 @@ function LoginPage({
                 <form className="w-100" onSubmit={onSubmit}>
                   <div className="formField">
                     <label htmlFor="email-address" className="label">
+                    <Typography variant="subtitle1" color={'red'}>
+                      {state.err}{' '}
+                    </Typography>
+                    <p>
+                    {!state.isEmailConfirmed && state.isResponse &&
+                      <a href="#" onClick={sendVerificationMail} className="textButton">Click here to send verification mail if not recieved</a>
+                    }
+                    </p>
+                    
                       <span>Email address</span>
                     </label>
 
