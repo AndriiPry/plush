@@ -12,8 +12,6 @@ function SignUp({
   handleGoogleLoginSuccess,
   showPasswordForm,
   handlePasswordUpdate,
-  passData,
-  setPassData,
 }) {
   return (
     <div className="layout">
@@ -48,9 +46,9 @@ function SignUp({
                                 type="password"
                                 name="newPassword"
                                 id="new-password"
-                                value={passData.password}
+                                value={formData.password}
                                 onChange={(e) =>
-                                  setPassData({ ...passData, password: e.target.value })
+                                  setFormData({ ...formData, password: e.target.value })
                                 }
                                 required
                             />
@@ -61,9 +59,9 @@ function SignUp({
                                 type="password"
                                 name="confirmPassword"
                                 id="confirm-password"
-                                value={passData.confirmPassword}
+                                value={formData.confirmPassword}
                                 onChange={(e) =>
-                                    setPassData({ ...passData, confirmPassword: e.target.value })
+                                    setFormData({ ...formData, confirmPassword: e.target.value })
                                 }
                                 required
                             />
@@ -195,11 +193,10 @@ function SignUp({
                       </div>
                     </div>
                   </div>
-              
-                  <div>
-                    <div className="button main">
-                      <button type="submit" disabled={loading} className="w-100 btn_auth"> Sign me up </button>
-                    </div>
+                  <div className="button main">
+                    <button type="submit" className="w-100 btn_auth">
+                      Sign me up
+                    </button>
                   </div>
                   <div className="tos">
                     By signing up, I agree to the{' '}
