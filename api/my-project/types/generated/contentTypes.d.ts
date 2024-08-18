@@ -864,6 +864,38 @@ export interface ApiCreatorCreator extends Schema.CollectionType {
   };
 }
 
+export interface ApiEmailVerificationEmailVerification
+  extends Schema.CollectionType {
+  collectionName: 'email_verifications';
+  info: {
+    singularName: 'email-verification';
+    pluralName: 'email-verifications';
+    displayName: 'EmailVerification';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    completed: Attribute.Boolean;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::email-verification.email-verification',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::email-verification.email-verification',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiOrderOrder extends Schema.CollectionType {
   collectionName: 'orders';
   info: {
@@ -1011,6 +1043,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::category.category': ApiCategoryCategory;
       'api::creator.creator': ApiCreatorCreator;
+      'api::email-verification.email-verification': ApiEmailVerificationEmailVerification;
       'api::order.order': ApiOrderOrder;
       'api::product.product': ApiProductProduct;
       'api::sub-category.sub-category': ApiSubCategorySubCategory;

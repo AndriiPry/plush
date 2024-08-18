@@ -6,13 +6,16 @@ import Home from "./pages/Home/Home";
 import Product from "./pages/Product/Product";
 import Products from "./pages/Products/Products";
 import Create from "./pages/Create/Create";
-import LoginPage from "./pages/LoginPage/LoginPage"
 import PasswordReset from "./pages/PasswordReset/PasswordReset"
 import MyAccount from "./pages/MyAccount/MyAccount"
 import "./app.scss"
 import SignUpController from "./pages/SignUp/SignUpController";
 import { useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
+import LoginPageController from "./pages/LoginPage/LoginPageController";
+import OTPVerifyier from "./pages/PasswordReset/OTPVerifyier";
+import PasswordResetController from "./pages/PasswordReset/PasswordResetController";
+import CreatePasswordController from "./pages/PasswordReset/CreatePasswordController";
 
 const Layout = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -54,7 +57,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/loginpage",
-        element: <LoginPage />,
+        element: <LoginPageController />,
       },
       {
         path: "/signup",
@@ -62,11 +65,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/passwordreset",
-        element: <PasswordReset />,
+        element: <PasswordResetController />,
       },
       {
         path: "/myaccount",
         element: <MyAccount />,
+      },
+      {
+        path:"/verifyOTP",
+        element : <OTPVerifyier />
+      },
+      {
+        path:"/createPassword",
+        element : <CreatePasswordController />
       },
     ],
   },

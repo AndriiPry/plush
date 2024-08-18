@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './PasswordReset.scss';
+import { Typography } from '@mui/material';
 
-const PasswordReset = () => {
+const PasswordReset = ({
+  formData,
+  setFormData,
+  loading,
+  verifyUserEmail
+}) => {
+  
   return (
     <div className="layout flexLayout">
       <div className="leftSideBar">
@@ -45,7 +52,7 @@ const PasswordReset = () => {
                 Enter your email address below. We’ll send you instructions to reset your password.
               </h5>
               <div className="d-flex align-items-center justify-content-center w-100 formMargins">
-                <form className="w-100">
+                <form className="w-100" onSubmit={verifyUserEmail}>
                   <div className="formField">
                     <div>
                       <div className="formField marginBottom">
@@ -53,6 +60,9 @@ const PasswordReset = () => {
                           <label htmlFor="email-address" className="label">
                             <span>Work email address</span>
                           </label>
+                          <Typography variant="subtitle1" color={'red'}>
+                              {formData.err}{' '}
+                          </Typography>
                           <div className="inputWrap">
                             <input
                               type="email"
@@ -60,7 +70,16 @@ const PasswordReset = () => {
                               autoComplete="email"
                               placeholder=""
                               id="email-address"
-                              required="required"
+                              disabled={loading}
+                              value={formData.email}
+                              onChange={(e) =>
+                                setFormData({
+                                  ...formData,
+                                  err: '',
+                                  email: e.target.value,
+                                })
+                              }
+                              required
                             />
                           </div>
                         </div>
