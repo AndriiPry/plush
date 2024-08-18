@@ -1,8 +1,14 @@
 import React from "react";
 import "./LoginPage.scss";
+import { GoogleLogin } from "@react-oauth/google";
 
-function LoginPage ({ state, setState, onSubmit, loading }) 
- {
+function LoginPage({
+  state,
+  setState,
+  onSubmit,
+  handleGoogleLoginSuccess,
+  handleGoogleLogout,
+}) {
   return (
     <div className="layout">
       <div className="leftSideBar">
@@ -34,21 +40,21 @@ function LoginPage ({ state, setState, onSubmit, loading })
                 height="70"
                 width="154"
                 xmlns="http://www.w3.org/2000/svg"
-              >
-              </svg>
+              ></svg>
               <h3 className="authHeader">Welcome back</h3>
               <div className="d-flex flex-column align-items-center justify-content-center w-100 formMargins">
                 <div className="row w-100">
                   <div className="root">
-                    <div id="googleSignupButton">
-                      <div className="googleButtonWrapper">
-                        <iframe
-                          src="https://accounts.google.com/gsi/button?type=standard&shape=rectangular&theme=filled_blue&text=continue_with&size=large&logo_alignment=left&width=352&client_id=164693476873-qk7vagih0eh0vvhoshn4u3j6nesc8bk4.apps.googleusercontent.com"
-                          allow="identity-credentials-get"
-                          title="Sign in with Google Button"
-                        ></iframe>
-                      </div>
-                    </div>
+                    {/* <div id="googleSignupButton">
+                      
+            
+                     <GoogleLogin
+                        onSuccess={handleGoogleLoginSuccess}
+                        onError={() => {
+                          console.log("Login Failed");
+                        }}
+                      />
+                    </div> */}
                   </div>
                 </div>
                 <div className="w-100 breaker">
@@ -67,7 +73,11 @@ function LoginPage ({ state, setState, onSubmit, loading })
                         type="email"
                         name="Identifier"
                         onChange={(e) =>
-                          setState({ ...state, err: "", identifier: e.target.value })
+                          setState({
+                            ...state,
+                            err: "",
+                            identifier: e.target.value,
+                          })
                         }
                         value={state.identifier}
                         required
@@ -121,6 +131,6 @@ function LoginPage ({ state, setState, onSubmit, loading })
       </div>
     </div>
   );
-};
+}
 
 export default LoginPage;

@@ -9,6 +9,7 @@ export const actions = {
     CALL_SNACKBAR_DATA: "CALL_SNACKBAR_DATA",
     SIGN_IN: 'SIGN_IN',
     SIGN_OUT: 'SIGN_OUT',
+    SIGN_IN_SUCCESS: "SIGN_IN_SUCCESS",
 
 
 }

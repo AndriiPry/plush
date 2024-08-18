@@ -5,12 +5,22 @@ import { useSnackbar } from "notistack";
 import LoginPage from "./LoginPage";
 import { signInAction } from "../../redux/actions/userReducerAction";
 import useValidate from "../../hooks/useValidator";
+import { jwtDecode } from "jwt-decode";
+
 
 const LoginPageController = () => {
     const { enqueueSnackbar } = useSnackbar();
     const dispatch = useDispatch();
     const validate = useValidate();
     const navigate = useNavigate();
+
+
+    // const handleGoogleLoginSuccess = (credentialResponse) => {
+    //     const decoded = jwtDecode(credentialResponse.credential);
+    //     console.log("decode", decoded);
+    //     console.log(credentialResponse);
+    //     navigate("/myaccount");
+    //   };
 
     const [loading, setLoading] = useState(false);
 
@@ -65,8 +75,10 @@ const LoginPageController = () => {
             setState={setState}
             onSubmit={onSubmit}
             loading={loading}
+            // handleGoogleLoginSuccess={handleGoogleLoginSuccess}
         />
     );
 };
 
 export default LoginPageController;
+

@@ -33,8 +33,8 @@ const userReducer = (state = initialState, action) => {
             refreshToken.set(action.value.refreshToken);
             return { ...state, data: action.value, isLoggedIn: true };
         case actions.SIGN_OUT: 
-            accessToken.remove(); // Optionally clear tokens
-            refreshToken.remove(); // Optionally clear tokens
+            accessToken.remove(); 
+            refreshToken.remove(); 
             return { ...state, data: {}, isLoggedIn: false };
         default: 
             return state;

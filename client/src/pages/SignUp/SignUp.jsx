@@ -2,7 +2,6 @@ import React from 'react';
 import './SignUp.scss';
 import { Typography } from '@mui/material';
 import { validateEmail, validatePassword } from '../../utils/helper';
-import { GoogleLogin } from '@react-oauth/google';
 
 function SignUp({
   formData,
@@ -49,16 +48,7 @@ function SignUp({
                 </a>
               </div>
               <div className="d-flex flex-column align-items-center justify-content-center w-100 formMargins">
-                <div id="googleSignupButton">
-                  <GoogleLogin
-                    onSuccess={(credentialResponse) => {
-                      console.log(credentialResponse);
-                    }}
-                    onError={() => {
-                      console.log('Login Failed');
-                    }}
-                  />
-                </div>
+                
                 <div className="w-100 breaker">
                   <div className="line"></div>
                   <div className="text">or</div>
