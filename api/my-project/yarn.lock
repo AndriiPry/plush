@@ -1522,6 +1522,22 @@
     react-query "3.39.3"
     react-select "5.7.0"
 
+"@strapi/helper-plugin@4.25.8":
+  version "4.25.8"
+  resolved "https://registry.npmjs.org/@strapi/helper-plugin/-/helper-plugin-4.25.8.tgz"
+  integrity sha512-Fz6wO1vl2U1AzPVhuj35nQjUFPHQSFc1xmDv0pbjqpLIXNLHDJ6K7rIXuyLu9CqDIyUYnL3NjEdo+G0UOK52Tw==
+  dependencies:
+    axios "1.6.0"
+    date-fns "2.30.0"
+    formik "2.4.0"
+    immer "9.0.19"
+    lodash "4.17.21"
+    qs "6.11.1"
+    react-helmet "6.1.0"
+    react-intl "6.4.1"
+    react-query "3.39.3"
+    react-select "5.7.0"
+
 "@strapi/icons@^1.5.0", "@strapi/icons@1.19.0":
   version "1.19.0"
   resolved "https://registry.npmjs.org/@strapi/icons/-/icons-1.19.0.tgz"
@@ -1618,6 +1634,22 @@
     react-helmet "^6.1.0"
     react-intl "6.4.1"
     react-redux "8.1.1"
+    yup "0.32.9"
+
+"@strapi/plugin-email@^4.25.8":
+  version "4.25.8"
+  resolved "https://registry.npmjs.org/@strapi/plugin-email/-/plugin-email-4.25.8.tgz"
+  integrity sha512-DHJI3E07LBN+MDg6KHmqgj2KG+kZ5mCLuneatnnsSIJPb61oTflPiiSdMeceJf2+WnGXVWbIbeDmyojbVDMALQ==
+  dependencies:
+    "@strapi/design-system" "1.19.0"
+    "@strapi/helper-plugin" "4.25.8"
+    "@strapi/icons" "1.19.0"
+    "@strapi/provider-email-sendmail" "4.25.8"
+    "@strapi/utils" "4.25.8"
+    lodash "4.17.21"
+    prop-types "^15.8.1"
+    react-intl "6.4.1"
+    react-query "3.39.3"
     yup "0.32.9"
 
 "@strapi/plugin-email@4.25.1":
@@ -1726,6 +1758,14 @@
   integrity sha512-eKp912Q0nIZOKEivgOpyFV9OAurNU+oJV/00eh9Q2uDWdtSl/Z7pO481XyFan7Jthn7aB2J5C50xzhQrsFaggA==
   dependencies:
     "@strapi/utils" "4.25.1"
+    sendmail "^1.6.1"
+
+"@strapi/provider-email-sendmail@4.25.8":
+  version "4.25.8"
+  resolved "https://registry.npmjs.org/@strapi/provider-email-sendmail/-/provider-email-sendmail-4.25.8.tgz"
+  integrity sha512-gE1RyZTsCeaSA06lUgA01VsTToa7EhDz8pIy0tMHRZhz4KrNvtNc50j1uBzBZq7sEhCCABM7VmbdteKVO79qgg==
+  dependencies:
+    "@strapi/utils" "4.25.8"
     sendmail "^1.6.1"
 
 "@strapi/provider-upload-local@4.25.1":
@@ -1870,6 +1910,18 @@
   version "4.25.1"
   resolved "https://registry.npmjs.org/@strapi/utils/-/utils-4.25.1.tgz"
   integrity sha512-QuvGfAbHU2I1ebZThoF3GzAtLQVClP9VKrL3IaSy3MfKbH9xzLpg+ROiwUAawgR7Qi/zF8865VCCe4tdqJUB7Q==
+  dependencies:
+    "@sindresorhus/slugify" "1.1.0"
+    date-fns "2.30.0"
+    http-errors "1.8.1"
+    lodash "4.17.21"
+    p-map "4.0.0"
+    yup "0.32.9"
+
+"@strapi/utils@4.25.8":
+  version "4.25.8"
+  resolved "https://registry.npmjs.org/@strapi/utils/-/utils-4.25.8.tgz"
+  integrity sha512-cyz18XLqhHKLIdEbwkL+7emCu3tViDUyRittGEFaOPfMnxSmlJ1dDVmZ8BJ7HFhx1KXcylrYju8I/5/NG3S6SQ==
   dependencies:
     "@sindresorhus/slugify" "1.1.0"
     date-fns "2.30.0"
@@ -7028,6 +7080,16 @@ nodemailer-shared@1.1.0:
   dependencies:
     nodemailer-fetch "1.6.0"
 
+nodemailer@^6.9.14:
+  version "6.9.14"
+  resolved "https://registry.npmjs.org/nodemailer/-/nodemailer-6.9.14.tgz"
+  integrity sha512-Dobp/ebDKBvz91sbtRKhcznLThrKxKt97GI2FAlAyy+fk19j73Uz3sBXolVtmcXjaorivqsbbbjDY+Jkt4/bQA==
+
+nodemailer@6.6.1:
+  version "6.6.1"
+  resolved "https://registry.npmjs.org/nodemailer/-/nodemailer-6.6.1.tgz"
+  integrity sha512-1xzFN3gqv+/qJ6YRyxBxfTYstLNt0FCtZaFRvf4Sg9wxNGWbwFmGXVpfSi6ThGK6aRxAo+KjHtYSW8NvCsNSAg==
+
 nodemon@3.0.2:
   version "3.0.2"
   resolved "https://registry.npmjs.org/nodemon/-/nodemon-3.0.2.tgz"
@@ -9109,6 +9171,14 @@ statuses@^2.0.1, statuses@2.0.1:
   version "1.5.0"
   resolved "https://registry.npmjs.org/statuses/-/statuses-1.5.0.tgz"
   integrity sha512-OpZ3zP+jT1PI7I8nemJX4AKmAX070ZkYPVWV/AaKTJl+tXCTGyVdC1a4SL8RUQYEwk/f34ZX8UTykN68FwrqAA==
+
+strapi-provider-email-nodemailer@^3.6.11:
+  version "3.6.11"
+  resolved "https://registry.npmjs.org/strapi-provider-email-nodemailer/-/strapi-provider-email-nodemailer-3.6.11.tgz"
+  integrity sha512-y6LZXnGai9axH2c//wFFsEsWsrdFlkxg8ujzqpQ9X4uwvqrXCwdZhDO3+cTzIs+NsWRhUjr5D1WE81IZ+EGtOQ==
+  dependencies:
+    lodash "4.17.21"
+    nodemailer "6.6.1"
 
 stream-chain@^2.2.5, stream-chain@2.2.5:
   version "2.2.5"
