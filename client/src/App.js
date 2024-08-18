@@ -13,6 +13,7 @@ import SignUpController from "./pages/SignUp/SignUpController";
 import { useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
 import LoginPageController from "./pages/LoginPage/LoginPageController";
+import OTPVerifyier from "./pages/PasswordReset/OTPVerifyier";
 
 const Layout = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
       {
         path: "/myaccount",
         element: <MyAccount />,
+      },
+      {
+        path:"/verifyOTP",
+        element : <OTPVerifyier />
       },
     ],
   },

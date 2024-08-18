@@ -1,7 +1,60 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './PasswordReset.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { callApiAction } from '../../redux/actions/commonAction';
+import { getUserByEmailApi } from '../../api/user.api';
+import { toTitleCase, validateEmail } from '../../utils/helper';
+import { SNACK_BAR_VARIETNS } from '../../utils/constants';
+import { callSnackBar } from '../../redux/actions/snackbarAction';
 
 const PasswordReset = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const {user} = useSelector(state => state)
+  const defaultFormData = {
+    email : '',
+    err  :''
+  }
+  const[loading, setLoading] = useState(false)
+  const [formData, setFormData] = useState(defaultFormData)
+  useEffect(() => {
+    if(user.isLoggedIn) {
+      navigate('/verifyOTP')
+    }
+  },[])
+  const verifyUserEmail = async (e) => {
+    e.preventDefault()
+    if(formData.email == "") {
+      setFormData({
+        ...formData,
+        err : "Email is required"
+      })
+      dispatch(callSnackBar("Email is required", SNACK_BAR_VARIETNS.error))
+    }
+    else if (!validateEmail(formData.email)) {
+      setFormData({
+        ...formData,
+        err : "Email is invalid"
+      })
+      dispatch(callSnackBar("Email is invalid", SNACK_BAR_VARIETNS.error))
+    } else {
+        setLoading(true)
+        dispatch(
+          callApiAction(
+              async () =>  await getUserByEmailApi(formData.email),
+              (response) => {
+                setLoading(false)
+                setFormData(defaultFormData) 
+              },
+              (err) => {
+                  setLoading(false)
+                  setFormData({ ...formData, err })
+              }
+          )
+        )
+    }
+  }
   return (
     <div className="layout flexLayout">
       <div className="leftSideBar">
@@ -45,7 +98,7 @@ const PasswordReset = () => {
                 Enter your email address below. We’ll send you instructions to reset your password.
               </h5>
               <div className="d-flex align-items-center justify-content-center w-100 formMargins">
-                <form className="w-100">
+                <form className="w-100" onSubmit={verifyUserEmail}>
                   <div className="formField">
                     <div>
                       <div className="formField marginBottom">
@@ -60,7 +113,16 @@ const PasswordReset = () => {
                               autoComplete="email"
                               placeholder=""
                               id="email-address"
-                              required="required"
+                              disabled={loading}
+                              value={formData.email}
+                              onChange={(e) =>
+                                setFormData({
+                                  ...formData,
+                                  err: '',
+                                  email: e.target.value,
+                                })
+                              }
+                              required
                             />
                           </div>
                         </div>
