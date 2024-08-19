@@ -47,16 +47,17 @@ const Navbar = () => {
             {!isLoggedIn ? (
               <Link className="link" to="/LoginPage">Sign In/Up</Link>
             ) : (
+              <>
               <button onClick={handleLogout} className="link">Log Out</button>
-            )}
-
-            <Link to="/MyAccount">
+              <Link to="/MyAccount">
               <PersonOutlineOutlinedIcon />
             </Link>
             <div className="cartIcon" onClick={() => setOpen(!open)}>
               <ShoppingCartOutlinedIcon />
               <span>{products.length}</span>
             </div>
+              </>
+            )}
             <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
               {menuOpen ? <CloseIcon /> : <MenuIcon />}
             </div>

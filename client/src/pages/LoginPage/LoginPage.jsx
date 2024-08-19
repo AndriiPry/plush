@@ -8,7 +8,6 @@ function LoginPage({
   setState,
   onSubmit,
   handleGoogleLoginSuccess,
-  handleGoogleLogout,
   sendVerificationMail,
 }) {
   return (
@@ -47,16 +46,16 @@ function LoginPage({
               <div className="d-flex flex-column align-items-center justify-content-center w-100 formMargins">
                 <div className="row w-100">
                   <div className="root">
-                    {/* <div id="googleSignupButton">
-                      
-            
+                    
+                    <div id="googleSignupButton">
                      <GoogleLogin
                         onSuccess={handleGoogleLoginSuccess}
                         onError={() => {
                           console.log("Login Failed");
                         }}
                       />
-                    </div> */}
+                    </div>
+                    
                   </div>
                 </div>
                 <div className="w-100 breaker">

@@ -10,8 +10,6 @@ function SignUp({
   handleSubmit,
   loading,
   handleGoogleLoginSuccess,
-  showPasswordForm,
-  handlePasswordUpdate,
 }) {
   return (
     <div className="layout">
@@ -32,44 +30,6 @@ function SignUp({
           </div>
         </div>
       </div>
-      {showPasswordForm ? (
-                <div className="passwordForm">
-                    <form
-                        onSubmit={(e) => {
-                            e.preventDefault();
-                            handlePasswordUpdate(e);
-                        }}
-                    >
-                        <div className="formField marginBottom">
-                            <label htmlFor="new-password">New Password</label>
-                            <input
-                                type="password"
-                                name="newPassword"
-                                id="new-password"
-                                value={formData.password}
-                                onChange={(e) =>
-                                  setFormData({ ...formData, password: e.target.value })
-                                }
-                                required
-                            />
-                        </div>
-                        <div className="formField marginBottom">
-                            <label htmlFor="confirm-password">Confirm Password</label>
-                            <input
-                                type="password"
-                                name="confirmPassword"
-                                id="confirm-password"
-                                value={formData.confirmPassword}
-                                onChange={(e) =>
-                                    setFormData({ ...formData, confirmPassword: e.target.value })
-                                }
-                                required
-                            />
-                        </div>
-                        <button type="submit">Create Password</button>
-                    </form>
-                </div>
-            ) : (
       <div className="content">
         <div className="authParent">
           <div className="d-flex justify-content-center h-100 w-100">
@@ -222,8 +182,6 @@ function SignUp({
           </div>
         </div>
       </div>
-      )
-    }
     </div>
   );
 }

@@ -10,6 +10,7 @@ import { callApiAction } from "../../redux/actions/commonAction";
 import { toTitleCase } from "../../utils/helper";
 import { sendConfirmEmailApi } from "../../api/user.api";
 import { SNACK_BAR_VARIETNS } from "../../utils/constants";
+import { jwtDecode } from "jwt-decode";
 
 
 const LoginPageController = () => {
@@ -42,6 +43,19 @@ const LoginPageController = () => {
             field: 'password',
         }
     ], [state]);
+
+
+    // const handleGoogleLoginSuccess = async (credentialResponse) => {
+    //     try {
+    //         const decoded = jwtDecode(credentialResponse.credential);  
+    //         console.log(decoded);
+    //         setLoading(true);
+        
+    //     } catch (error) {
+    //         console.error("Error handling Google sign-in:", error);
+    //         dispatch(callSnackBar("Failed to sign in with Google", SNACK_BAR_VARIETNS.error));
+    //     }
+    // };
 
     useEffect(() => {
         if (state.isEmailConfirmed) {
@@ -107,12 +121,52 @@ const LoginPageController = () => {
         )
     }
  
+
+    //google log in
+    const handleGoogleLoginSuccess = async (credentialResponse) => {
+        try {
+            const decoded = jwtDecode(credentialResponse.credential);  
+            const { email } = decoded; // Extract email from decoded token
+            
+            setLoading(true);
+    
+            setState(prevState => ({
+                ...prevState,
+                identifier: email,
+                password: credentialResponse.credential,
+            }));
+    
+            dispatch(signInAction(
+                {
+                    identifier: email,
+                    password: credentialResponse.credential,
+                },
+                (err) => {
+                    setState(prevState => ({ ...prevState, err }));
+                    setLoading(false);
+                },
+                () => {
+                    enqueueSnackbar('Signed in Successfully', { variant: "success" });
+                    navigate('/myaccount');
+                }
+            ));
+    
+        } catch (error) {
+            console.error("Error handling Google sign-in:", error);
+            dispatch(callSnackBar("Failed to sign in with Google", SNACK_BAR_VARIETNS.error));
+            setLoading(false);
+        }
+    };
+    
+    
+    
     return (
         <LoginPage
             state={state}
             setState={setState}
             onSubmit={onSubmit}
             loading={loading}
+            handleGoogleLoginSuccess={handleGoogleLoginSuccess}
         />
     );
 };

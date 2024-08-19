@@ -13,6 +13,8 @@ import SignUpController from "./pages/SignUp/SignUpController";
 import { useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
 import LoginPageController from "./pages/LoginPage/LoginPageController";
+import ProtectedRoute from "./ProtectedRoute"; 
+
 
 const Layout = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -31,6 +33,46 @@ const Layout = () => {
   );
 };
 
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <Layout />,
+//     children: [
+//       {
+//         path: "/",
+//         element: <Home />,
+//       },
+//       {
+//         path: "/products",
+//         element: <Products />,
+//       },
+//       {
+//         path: "/product/:id",
+//         element: <Product />,
+//       },
+//       {
+//         path: "/create",
+//         element: <Create />,
+//       },
+//       {
+//         path: "/loginpage",
+//         element: <LoginPageController />,
+//       },
+//       {
+//         path: "/signup",
+//         element: <SignUpController />,
+//       },
+//       {
+//         path: "/passwordreset",
+//         element: <PasswordReset />,
+//       },
+//       {
+//         path: "/myaccount",
+//         element: <MyAccount />,
+//       },
+//     ],
+//   },
+// ]);
 const router = createBrowserRouter([
   {
     path: "/",
@@ -50,7 +92,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/create",
-        element: <Create />,
+        element: <ProtectedRoute element={<Create />} />,
       },
       {
         path: "/loginpage",
@@ -62,7 +104,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/passwordreset",
-        element: <PasswordReset />,
+        element: <ProtectedRoute element={<PasswordReset />} />,
       },
       {
         path: "/myaccount",
