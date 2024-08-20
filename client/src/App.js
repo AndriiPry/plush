@@ -107,7 +107,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/passwordreset",
-        element: <ProtectedRoute element={<PasswordResetController />} />,
+        element:  <PasswordResetController />,
       },
       {
         path: "/myaccount",
