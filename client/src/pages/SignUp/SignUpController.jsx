@@ -5,60 +5,29 @@ import { useDispatch } from 'react-redux'
 import { callSnackBar } from '../../redux/actions/snackbarAction'
 import { SNACK_BAR_VARIETNS } from '../../utils/constants'
 import { callApiAction } from '../../redux/actions/commonAction'
-import { addUserApi, updateUserApi } from '../../api/user.api'
+import { addUserApi } from '../../api/user.api'
 import {jwtDecode} from 'jwt-decode'
+import { useNavigate } from 'react-router-dom'
 
 function SignUpController() {
     const defaultFormData = {
         err: '',
         username: '',
         email: '',
-        password: '',
-        confirmPassword: '',  
     }
   
     const [formData, setFormData] = useState(defaultFormData)
     const [loading, setLoading] = useState(false)
-    const [showPasswordForm, setShowPasswordForm] = useState(false);
     const [googleAccount, setGoogleAccount] = useState(null)
-    const [resData , setResData] = useState("");
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
-    // const handleGoogleLoginSuccess = async (credentialResponse) => {
-    //     try {
-    //         const decoded = jwtDecode(credentialResponse.credential)
-    //         const googleUserData = {
-    //             email: decoded.email,
-    //             username: decoded.name,
-    //             password: credentialResponse.credential 
-    //         }
-    //         console.log(decoded)
-    //         setGoogleAccount(googleUserData)
-    //         setShowPasswordForm(true); // Show the password form
-
-    //         setLoading(true)
-    //         await dispatch(callApiAction(
-    //             async () => await addUserApi(googleUserData),
-    //             (response) => {
-    //                 setLoading(false)
-    //                 setFormData(defaultFormData)
-    //                 setGoogleAccount(null)
-    //             },
-    //             (err) => {
-    //                 setLoading(false)
-    //                 setFormData({ ...formData, err })
-    //             }
-    //         ))
-    //     } catch (error) {
-    //         console.error("Error handling Google sign-in:", error)
-    //         dispatch(callSnackBar("Failed to sign in with Google", SNACK_BAR_VARIETNS.error))
-    //     }
-    // }
+   
     const handleGoogleLoginSuccess = async (credentialResponse) => {
         try {
             const decoded = jwtDecode(credentialResponse.credential);
+            console.log("decoded", decoded);
             
-            // Simulating the database response after the user is added
             const googleUserData = {
                 email: decoded.email,
                 username: decoded.name,
@@ -71,14 +40,22 @@ function SignUpController() {
             await dispatch(callApiAction(
                 async () => await addUserApi(googleUserData),
                 (response) => {
-                    setShowPasswordForm(true); 
-                    setResData(response.data);
                     setLoading(false);
-                    setFormData(defaultFormData);
+                    if (response && response.data) {
+                        setFormData(defaultFormData);
+                        dispatch(callSnackBar("Signed up successfully", SNACK_BAR_VARIETNS.suceess))
+                        navigate('/loginPage')
+                        
+                    }
                 },
                 (err) => {
                     setLoading(false);
                     setFormData({ ...formData, err });
+                    if (err && err.status === 400 && err.message === "Email or Username are already taken") {
+                        dispatch(callSnackBar("You are already registered. Please sign in.", SNACK_BAR_VARIETNS.error));
+                    } else {
+                        dispatch(callSnackBar("Failed to sign in with Google", SNACK_BAR_VARIETNS.error));
+                    }
                 }
             ));
         } catch (error) {
@@ -175,48 +152,6 @@ function SignUpController() {
         createFunction(e)
     }
 
-    //password
-    const handlePasswordUpdate = async (e) => {
-        e.preventDefault();
-    
-        if (formData.password !== formData.confirmPassword) {
-            setFormData({
-                ...formData,
-                err: "Passwords do not match.",
-            });
-            dispatch(callSnackBar("Passwords do not match.", SNACK_BAR_VARIETNS.error));
-            return;
-        }
-        console.log("ID from user object:", formData?.id);
-        try {
-            setLoading(true);
-    
-          
-        const dataToBePassed = {
-            password: formData.password,
-        };
-    
-            await dispatch(callApiAction(
-                async () => await updateUserApi(resData?.user?.id, dataToBePassed, resData?.jwt),
-                (response) => {
-                    setLoading(false);
-                    setFormData(defaultFormData);
-                    setGoogleAccount(null);
-                    setShowPasswordForm(false); 
-                    dispatch(callSnackBar("Password updated successfully", SNACK_BAR_VARIETNS.success));
-                },
-                (err) => {
-                    setLoading(false);
-                    setFormData({ ...formData, err });
-                    dispatch(callSnackBar("Failed to update password", SNACK_BAR_VARIETNS.error));
-                }
-            ));
-        } catch (error) {
-            console.error("Error updating password:", error);
-            dispatch(callSnackBar("Failed to update password", SNACK_BAR_VARIETNS.error));
-        }
-    };
-
     return (
         <SignUp
             formData={formData}
@@ -224,8 +159,6 @@ function SignUpController() {
             handleSubmit={handleSubmit}
             loading={loading}
             handleGoogleLoginSuccess={handleGoogleLoginSuccess}
-            showPasswordForm={showPasswordForm}
-            handlePasswordUpdate={handlePasswordUpdate}
         />
     )
 }
