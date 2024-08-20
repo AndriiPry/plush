@@ -7,6 +7,7 @@ import { SNACK_BAR_VARIETNS } from '../../utils/constants'
 import { callApiAction } from '../../redux/actions/commonAction'
 import { addUserApi } from '../../api/user.api'
 import {jwtDecode} from 'jwt-decode'
+import { useNavigate } from 'react-router-dom'
 
 function SignUpController() {
     const defaultFormData = {
@@ -19,39 +20,9 @@ function SignUpController() {
     const [loading, setLoading] = useState(false)
     const [googleAccount, setGoogleAccount] = useState(null)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
    
-    // const handleGoogleLoginSuccess = async (credentialResponse) => {
-    //     try {
-    //         const decoded = jwtDecode(credentialResponse.credential);
-    //         console.log("decoded", decoded);
-            
-    //         const googleUserData = {
-    //             email: decoded.email,
-    //             username: decoded.name,
-    //             password: credentialResponse.credential,
-    //         };
-            
-    //         console.log(decoded);
-    
-    //         setLoading(true);
-    //         await dispatch(callApiAction(
-    //             async () => await addUserApi(googleUserData),
-    //             (response) => {
-    //                 console.log("response",response)
-    //                 setLoading(false);
-    //                 setFormData(defaultFormData);
-    //             },
-    //             (err) => {
-    //                 setLoading(false);
-    //                 setFormData({ ...formData, err });
-    //             }
-    //         ));
-    //     } catch (error) {
-    //         console.error("Error handling Google sign-in:", error);
-    //         dispatch(callSnackBar("Failed to sign in with Google", SNACK_BAR_VARIETNS.error));
-    //     }
-    // };
     const handleGoogleLoginSuccess = async (credentialResponse) => {
         try {
             const decoded = jwtDecode(credentialResponse.credential);
@@ -69,10 +40,12 @@ function SignUpController() {
             await dispatch(callApiAction(
                 async () => await addUserApi(googleUserData),
                 (response) => {
-                    console.log("response", response);
                     setLoading(false);
                     if (response && response.data) {
                         setFormData(defaultFormData);
+                        dispatch(callSnackBar("Signed up successfully", SNACK_BAR_VARIETNS.suceess))
+                        navigate('/loginPage')
+                        
                     }
                 },
                 (err) => {

@@ -1,7 +1,14 @@
 import React from 'react';
 import './MyAccount.scss';
+import { useDispatch } from 'react-redux';
+import PasswordReset from '../PasswordReset/PasswordReset';
+import { useNavigate } from 'react-router-dom';
 
 const MyAccount = () => {
+  const navigate = useNavigate()
+  const openResetPassword = () => {
+   navigate('/passwordreset')
+  }
   return (
     <div className="layout">
       <div className="_container">
@@ -63,7 +70,7 @@ const MyAccount = () => {
 
             <div className="_whiteBase">
               <h2 className="_h2">Reset password</h2>
-              <button className="_mainBtn">Send reset email</button>
+              <button className="_mainBtn" onClick={openResetPassword}>Reset Password</button>
             </div>
 
             <div className="_whiteBase _center">

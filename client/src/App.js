@@ -13,6 +13,9 @@ import SignUpController from "./pages/SignUp/SignUpController";
 import { useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
 import LoginPageController from "./pages/LoginPage/LoginPageController";
+import OTPVerifyier from "./pages/PasswordReset/OTPVerifyier";
+import PasswordResetController from "./pages/PasswordReset/PasswordResetController";
+import CreatePasswordController from "./pages/PasswordReset/CreatePasswordController";
 import ProtectedRoute from "./ProtectedRoute"; 
 
 
@@ -104,11 +107,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/passwordreset",
-        element: <ProtectedRoute element={<PasswordReset />} />,
+        element: <ProtectedRoute element={<PasswordResetController />} />,
       },
       {
         path: "/myaccount",
         element: <MyAccount />,
+      },
+      {
+        path:"/verifyOTP",
+        element : <OTPVerifyier />
+      },
+      {
+        path:"/createPassword",
+        element : <CreatePasswordController />
       },
     ],
   },

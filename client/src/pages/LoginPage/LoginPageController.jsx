@@ -68,8 +68,6 @@ const LoginPageController = () => {
 
     const onSubmit = async (e) => {
         e.preventDefault();
-
-        console.log("submit login")
         const validationResponse = validate(validationSchema);
 
         if (validationResponse === true) {
@@ -166,6 +164,7 @@ const LoginPageController = () => {
             setState={setState}
             onSubmit={onSubmit}
             loading={loading}
+            sendVerificationMail={sendVerificationMail}
             handleGoogleLoginSuccess={handleGoogleLoginSuccess}
         />
     );
