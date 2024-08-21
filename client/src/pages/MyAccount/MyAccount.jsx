@@ -1,14 +1,18 @@
 import React from 'react';
 import './MyAccount.scss';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PasswordReset from '../PasswordReset/PasswordReset';
 import { useNavigate } from 'react-router-dom';
 
-const MyAccount = () => {
-  const navigate = useNavigate()
-  const openResetPassword = () => {
-   navigate('/passwordreset')
-  }
+const MyAccount = ({
+  openResetPassword,
+  formData,
+  setFormData,
+  loading,
+  userEmail,
+  handleSubmit,
+}) => {
+  
   return (
     <div className="layout">
       <div className="_container">
@@ -35,38 +39,158 @@ const MyAccount = () => {
             <div className="w-100 select-none bg-white">
               <div className="flex">
                 <a href="/account-settings" className="router-link-exact-active router-link-active _menuItem" aria-current="page">Account Settings</a>
-                <a href="/workspace-settings" className="_menuItem">Workspace Settings</a>
-                <a href="/team-members" className="_menuItem">Team Members</a>
               </div>
             </div>
           </div>
 
           <div className="_root">
+          <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit(e);
+          }}
+          >
             <div className="_whiteBase">
-              <h2 className="_h2">Basic information</h2>
+              <h2 className="_h2">Address Detail</h2>
               <div className="_container">
+                
                 <div className="_width">
                   <div className="_inputRoot">
                     <label htmlFor="form-input-3" className="_label"><span>Full name</span></label>
                     <div className="_inputWrap">
-                      <input type="text" name="fullName" id="form-input-3" required />
+                      <input 
+                        type="text" 
+                        name="fullName" 
+                        id="form-input-3" 
+                        disabled={loading}
+                        value={formData.fullName}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            err: '',
+                            fullName: e.target.value,
+                          })
+                        }
+                        required 
+                        />
                     </div>
                   </div>
                 </div>
                 <div className="_width">
                   <div className="_inputRoot">
-                    <label htmlFor="form-input-4" className="_label"><span>Work email address</span></label>
+                    <label htmlFor="form-input-4" className="_label"><span>Shipping Address</span></label>
                     <div className="_inputWrap">
-                      <input type="email" name="email" id="form-input-4" required />
+                      <textarea 
+                        type="text" 
+                        name="address" 
+                        cols={81}
+                        rows={5}
+                        id="form-input-4"
+                        disabled={loading}
+                        value={formData.address}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            err: '',
+                            address: e.target.value,
+                          })
+                        } 
+                        required 
+                      />
                     </div>
                   </div>
                 </div>
-              </div>
+
+                <div className="_width">
+                  <div className="_inputRoot">
+                    <label htmlFor="form-input-4" className="_label"><span>City</span></label>
+                    <div className="_inputWrap">
+                      <input 
+                        type="text" 
+                        name="city" 
+                        id="form-input-4"
+                        disabled={loading}
+                        value={formData.city}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            err: '',
+                            city: e.target.value,
+                          })
+                        }
+                        required 
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="_width">
+                  <div className="_inputRoot">
+                    <label htmlFor="form-input-4" className="_label"><span>ZIP Code</span></label>
+                    <div className="_inputWrap">
+                      <input 
+                        type="text" 
+                        name="zip code" 
+                        id="form-input-4"
+                        disabled={loading}
+                        value={formData.zipCode}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            err: '',
+                            zipCode: e.target.value,
+                          })
+                        }
+                        required 
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="_width">
+                  <div className="_inputRoot">
+                    <label htmlFor="form-input-3" className="_label"><span>Country</span></label>
+                    <div className="_inputWrap">
+                      <input 
+                        type="text" 
+                        name="country" 
+                        id="form-input-3"
+                        disabled={loading}
+                        value={formData.country}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            err: '',
+                            country: e.target.value,
+                          })
+                        }  
+                        required 
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="_width">
+                  <div className="_inputRoot">
+                    <label htmlFor="form-input-4" className="_label"><span>Email</span></label>
+                    <div className="_inputWrap">
+                      <input 
+                        type="text" 
+                        name="Email" 
+                        id="form-input-4" 
+                        value={userEmail}
+                        readOnly 
+                      />
+                    </div>
+                  </div>
+                </div>
+                </div>
+              
               <div className="_btnContainer">
                 <button className="_cancelBtn">Cancel</button>
-                <button className="_saveBtn" disabled>Save</button>
+                <button className="_saveBtn" type='submit'>Update</button>
               </div>
             </div>
+            </form>
 
             <div className="_whiteBase">
               <h2 className="_h2">Reset password</h2>

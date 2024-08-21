@@ -17,6 +17,7 @@ import OTPVerifyier from "./pages/PasswordReset/OTPVerifyier";
 import PasswordResetController from "./pages/PasswordReset/PasswordResetController";
 import CreatePasswordController from "./pages/PasswordReset/CreatePasswordController";
 import ProtectedRoute from "./ProtectedRoute"; 
+import MyAccountController from "./pages/MyAccount/MyAccountController";
 
 
 const Layout = () => {
@@ -95,7 +96,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/create",
-        element: <ProtectedRoute element={<Create />} />,
+        element:  <Create />,
       },
       {
         path: "/loginpage",
@@ -107,11 +108,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/passwordreset",
-        element: <PasswordResetController /> ,
+        element: <PasswordResetController />,
       },
       {
         path: "/myaccount",
-        element: <MyAccount />,
+        element: <MyAccountController />,
       },
       {
         path:"/verifyOTP",
