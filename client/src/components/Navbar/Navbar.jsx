@@ -8,6 +8,7 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 import Cart from "../Cart/Cart";
 import { actions } from "../../utils/constants";
 import "./Navbar.scss";
+import { FeaturedPlayList } from "@mui/icons-material";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -47,16 +48,21 @@ const Navbar = () => {
             {!isLoggedIn ? (
               <Link className="link" to="/LoginPage">Sign In/Up</Link>
             ) : (
-              <button onClick={handleLogout} className="link">Log Out</button>
-            )}
-
-            <Link to="/MyAccount">
+              <>
+              <Link to="/MyAccount">
               <PersonOutlineOutlinedIcon />
+            </Link>
+            <Link to="/orderPage">
+              <FeaturedPlayList />
             </Link>
             <div className="cartIcon" onClick={() => setOpen(!open)}>
               <ShoppingCartOutlinedIcon />
               <span>{products.length}</span>
             </div>
+            <button onClick={handleLogout} className="link">Log Out</button>
+
+              </>
+            )}
             <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
               {menuOpen ? <CloseIcon /> : <MenuIcon />}
             </div>

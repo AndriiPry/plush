@@ -9,6 +9,7 @@ import { loadStripe } from "@stripe/stripe-js";
 
 const Cart = () => {
   const products = useSelector((state) => state.cart.products);
+  const {user} = useSelector(state => state)
   const dispatch = useDispatch();
 
   const totalPrice = () => {
@@ -26,7 +27,10 @@ const Cart = () => {
     try {
       const stripe = await stripePromise;
       const res = await makeRequest.post("/orders", {
-        products,
+        data : {
+          products,
+          user : user?.data?.user?.id
+        }
       });
       await stripe.redirectToCheckout({
         sessionId: res.data.stripeSession.id,

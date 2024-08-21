@@ -9,7 +9,8 @@ import { callSnackBar } from "../../redux/actions/snackbarAction";
 import { callApiAction } from "../../redux/actions/commonAction";
 import { toTitleCase } from "../../utils/helper";
 import { sendConfirmEmailApi } from "../../api/user.api";
-import { SNACK_BAR_VARIETNS } from "../../utils/constants";
+import { actions, SNACK_BAR_VARIETNS } from "../../utils/constants";
+import { jwtDecode } from "jwt-decode";
 
 
 const LoginPageController = () => {
@@ -43,6 +44,8 @@ const LoginPageController = () => {
         }
     ], [state]);
 
+
+    
     useEffect(() => {
         if (state.isEmailConfirmed) {
             enqueueSnackbar('Signed in Successfully', { variant: "success" });
@@ -105,6 +108,46 @@ const LoginPageController = () => {
         )
     }
  
+
+    //google log in
+    const handleGoogleLoginSuccess = async (credentialResponse) => {
+        
+        try {
+            const decoded = jwtDecode(credentialResponse.credential);  
+            const { email } = decoded; // Extract email from decoded token
+            
+            setLoading(true);
+    
+            // Dispatch the sign-in action
+            dispatch(signInAction(
+                {
+                    identifier: email,
+                    password: credentialResponse.credential,
+                },
+                (err) => {
+                    setState(prevState => ({ ...prevState, err }));
+                    setLoading(false);
+                },
+                (response) => {
+                    dispatch({
+                        type: actions.SET_USER, 
+                        value: response,
+                    });
+    
+                    enqueueSnackbar('Signed in Successfully', { variant: "success" });
+                    navigate('/myaccount');
+                }
+            ));
+    
+        } catch (error) {
+            console.error("Error handling Google sign-in:", error);
+            dispatch(callSnackBar("Failed to sign in with Google", SNACK_BAR_VARIETNS.error));
+            setLoading(false);
+        }
+    };
+    
+    
+    
     return (
         <LoginPage
             state={state}
@@ -112,9 +155,9 @@ const LoginPageController = () => {
             onSubmit={onSubmit}
             loading={loading}
             sendVerificationMail={sendVerificationMail}
+            handleGoogleLoginSuccess={handleGoogleLoginSuccess}
         />
     );
 };
 
 export default LoginPageController;
-

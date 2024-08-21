@@ -10,12 +10,16 @@ import PasswordReset from "./pages/PasswordReset/PasswordReset"
 import MyAccount from "./pages/MyAccount/MyAccount"
 import "./app.scss"
 import SignUpController from "./pages/SignUp/SignUpController";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
 import LoginPageController from "./pages/LoginPage/LoginPageController";
 import OTPVerifyier from "./pages/PasswordReset/OTPVerifyier";
 import PasswordResetController from "./pages/PasswordReset/PasswordResetController";
 import CreatePasswordController from "./pages/PasswordReset/CreatePasswordController";
+import ProtectedRoute from "./ProtectedRoute"; 
+import OrderPageController from "./pages/Order/OrderPageController";
+import MyAccountController from "./pages/MyAccount/MyAccountController";
+
 
 const Layout = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -53,7 +57,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/create",
-        element: <Create />,
+        element:  <Create />,
       },
       {
         path: "/loginpage",
@@ -69,7 +73,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/myaccount",
-        element: <MyAccount />,
+        element: <ProtectedRoute element={<MyAccountController />}/>,
       },
       {
         path:"/verifyOTP",
@@ -79,6 +83,11 @@ const router = createBrowserRouter([
         path:"/createPassword",
         element : <CreatePasswordController />
       },
+      {
+        path:"/orderPage",
+        element : <OrderPageController />
+      },
+      
     ],
   },
 ]);
@@ -91,4 +100,6 @@ function App() {
   );
 }
 
+
 export default App;
+

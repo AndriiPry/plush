@@ -20,24 +20,27 @@ function OTPVerifyier({
   const otp =  location.state.otp
   const email = location.state.email
   const id = location.state.id
+  const otpSender = () => {
+    const dataToBePassed = { 
+      to : email,
+      subject : "Verify OTP",
+      text: `OTP for reseting the password = ${otp}`
+     }
+      dispatch(
+        callApiAction(
+            async () => await sendResetPasswordEmailApi(dataToBePassed),
+            (response) => {
+              dispatch(callSnackBar("Please check your email for otp", SNACK_BAR_VARIETNS.info))
+            },
+            (err) => {
+              dispatch(callSnackBar("something went wrong", SNACK_BAR_VARIETNS.error))
+                
+            }
+        )
+    )
+  }
   useEffect(() => {
-      const dataToBePassed = { 
-        to : email,
-        subject : "Verify OTP",
-        text: `OTP for reseting the password = ${otp}`
-       }
-        dispatch(
-          callApiAction(
-              async () => await sendResetPasswordEmailApi(dataToBePassed),
-              (response) => {
-                dispatch(callSnackBar("Please check your email for otp", SNACK_BAR_VARIETNS.info))
-              },
-              (err) => {
-                dispatch(callSnackBar("something went wrong", SNACK_BAR_VARIETNS.error))
-                  
-              }
-          )
-      )
+    otpSender()
   },[otp])
   const handleOTPVerifier = (e) => {
     e.preventDefault()
@@ -122,8 +125,12 @@ function OTPVerifyier({
                         <button type="submit" className="w-100 btn-auth">
                           Verify
                         </button>
+                        
                       </div>
                     </div>
+                    <button type="button" onClick={otpSender} className="w-100 btn-auth">
+                          Have Not Received OTP ?
+                    </button>
                   </div>
                 </div>
               </form>

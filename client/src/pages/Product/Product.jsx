@@ -17,7 +17,6 @@ const Product = () => {
   const [displaytimerends, setDisplayTimerEnds] = useState(false);
   const dispatch = useDispatch();
   const { data, loading, error } = useFetch(`/products/${id}?populate=*`);
-// console.log("data",data);
   // Countdown timer state
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
   const [percentage, setPercentage] = useState(false);
