@@ -45,6 +45,7 @@ const LoginPageController = () => {
     ], [state]);
 
 
+    
     useEffect(() => {
         if (state.isEmailConfirmed) {
             enqueueSnackbar('Signed in Successfully', { variant: "success" });
@@ -109,41 +110,6 @@ const LoginPageController = () => {
  
 
     //google log in
-    // const handleGoogleLoginSuccess = async (credentialResponse) => {
-    //     try {
-    //         const decoded = jwtDecode(credentialResponse.credential);  
-    //         const { email } = decoded; // Extract email from decoded token
-            
-    //         setLoading(true);
-    
-    //         setState(prevState => ({
-    //             ...prevState,
-    //             identifier: email,
-    //             password: credentialResponse.credential,
-    //         }));
-    
-    //         dispatch(signInAction(
-    //             {
-    //                 identifier: email,
-    //                 password: credentialResponse.credential,
-    //             },
-    //             (err) => {
-    //                 setState(prevState => ({ ...prevState, err }));
-    //                 setLoading(false);
-    //             },
-    //             () => {
-    //                 enqueueSnackbar('Signed in Successfully', { variant: "success" });
-    //                 navigate('/myaccount');
-    //             }
-    //         ));
-    
-    //     } catch (error) {
-    //         console.error("Error handling Google sign-in:", error);
-    //         dispatch(callSnackBar("Failed to sign in with Google", SNACK_BAR_VARIETNS.error));
-    //         setLoading(false);
-    //     }
-    // };
-
     const handleGoogleLoginSuccess = async (credentialResponse) => {
         
         try {
@@ -165,7 +131,7 @@ const LoginPageController = () => {
                 (response) => {
                     dispatch({
                         type: actions.SET_USER, 
-                        value: response.data,
+                        value: response,
                     });
     
                     enqueueSnackbar('Signed in Successfully', { variant: "success" });
@@ -179,7 +145,7 @@ const LoginPageController = () => {
             setLoading(false);
         }
     };
-
+    
     
     
     return (
@@ -195,4 +161,3 @@ const LoginPageController = () => {
 };
 
 export default LoginPageController;
-

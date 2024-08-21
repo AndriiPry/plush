@@ -16,7 +16,6 @@ export const getAddressApi = async (id,jwt) => {
 }
 
 export const updateAddressApi = async (id, data, jwt) => {
-  console.log("id in address", id)
     const callResponse = await axios({
       url: id ? `${endpoints.getAddress}/${id}` : `${endpoints.getAddress}`,
       method: id ? "PUT" : "POST",

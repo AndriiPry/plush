@@ -69,7 +69,6 @@ function SignUpController() {
                     setLoading(false)
                     setFormData(defaultFormData)
                     updateUser(response?.data)
-                    console.log(response) // jwt = response.data.jwt, id = response.data.user.id 
                   },
                   (err) => {
                       setLoading(false)
@@ -148,7 +147,6 @@ function SignUpController() {
       const handleGoogleLoginSuccess = async (credentialResponse) => {
         try {
             const decoded = jwtDecode(credentialResponse.credential);
-            console.log("decoded", decoded);
             
             const googleUserData = {
                 email: decoded.email,
@@ -156,7 +154,6 @@ function SignUpController() {
                 password: credentialResponse.credential,
             };
             
-            console.log(decoded);
     
             setLoading(true);
             await dispatch(callApiAction(

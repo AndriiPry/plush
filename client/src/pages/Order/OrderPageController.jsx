@@ -5,7 +5,7 @@ import { callApiAction } from '../../redux/actions/commonAction'
 import {getUsersOrder} from '../../api/order.api'
 
 function OrderPageController({id}) {
-    const [state, setState] = useState(null)
+    const [state, setState] = useState()
     const [loading, setLoading] = useState(false)
     const {user} = useSelector(state => state)
     const dispatch = useDispatch()

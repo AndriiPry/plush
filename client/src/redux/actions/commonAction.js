@@ -43,7 +43,6 @@ export const callApiAction = (asyncFun, onSuccess = () => { }, onError = () => {
         } catch (e) {
             console.log(e)
             onError(e.message)
-            console.log("andi mandi", e)
             dispatch(callSnackBar("OOPS! Something went wrong", SNACK_BAR_VARIETNS.error))
         }
     }
