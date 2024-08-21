@@ -12,6 +12,7 @@ export const actions = {
     SIGN_IN_SUCCESS: "SIGN_IN_SUCCESS",
     OPEN_MODAL: 'OPEN_MODAL',
     CLOSE_MODAL: 'CLOSE_MODAL',
+    SET_USER: 'SET_USER',
 }
 
 

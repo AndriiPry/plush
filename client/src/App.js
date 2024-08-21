@@ -10,13 +10,16 @@ import PasswordReset from "./pages/PasswordReset/PasswordReset"
 import MyAccount from "./pages/MyAccount/MyAccount"
 import "./app.scss"
 import SignUpController from "./pages/SignUp/SignUpController";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
 import LoginPageController from "./pages/LoginPage/LoginPageController";
 import OTPVerifyier from "./pages/PasswordReset/OTPVerifyier";
 import PasswordResetController from "./pages/PasswordReset/PasswordResetController";
 import CreatePasswordController from "./pages/PasswordReset/CreatePasswordController";
 import ProtectedRoute from "./ProtectedRoute"; 
+import { actions } from "./utils/constants";
+import { accessToken, refreshToken } from "./utils/helper";
+import OrderPage from "./pages/Order/OrderPage";
 
 
 const Layout = () => {
@@ -36,46 +39,6 @@ const Layout = () => {
   );
 };
 
-// const router = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: <Layout />,
-//     children: [
-//       {
-//         path: "/",
-//         element: <Home />,
-//       },
-//       {
-//         path: "/products",
-//         element: <Products />,
-//       },
-//       {
-//         path: "/product/:id",
-//         element: <Product />,
-//       },
-//       {
-//         path: "/create",
-//         element: <Create />,
-//       },
-//       {
-//         path: "/loginpage",
-//         element: <LoginPageController />,
-//       },
-//       {
-//         path: "/signup",
-//         element: <SignUpController />,
-//       },
-//       {
-//         path: "/passwordreset",
-//         element: <PasswordReset />,
-//       },
-//       {
-//         path: "/myaccount",
-//         element: <MyAccount />,
-//       },
-//     ],
-//   },
-// ]);
 const router = createBrowserRouter([
   {
     path: "/",
@@ -111,7 +74,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/myaccount",
-        element: <MyAccount />,
+        element: <ProtectedRoute element={<MyAccount />}/>,
       },
       {
         path:"/verifyOTP",
@@ -121,6 +84,11 @@ const router = createBrowserRouter([
         path:"/createPassword",
         element : <CreatePasswordController />
       },
+      {
+        path:"/orderPage",
+        element : <OrderPage />
+      },
+      
     ],
   },
 ]);
@@ -133,4 +101,6 @@ function App() {
   );
 }
 
+
 export default App;
+
