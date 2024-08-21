@@ -17,9 +17,7 @@ import OTPVerifyier from "./pages/PasswordReset/OTPVerifyier";
 import PasswordResetController from "./pages/PasswordReset/PasswordResetController";
 import CreatePasswordController from "./pages/PasswordReset/CreatePasswordController";
 import ProtectedRoute from "./ProtectedRoute"; 
-import { actions } from "./utils/constants";
-import { accessToken, refreshToken } from "./utils/helper";
-import OrderPage from "./pages/Order/OrderPage";
+import OrderPageController from "./pages/Order/OrderPageController";
 
 
 const Layout = () => {
@@ -86,7 +84,7 @@ const router = createBrowserRouter([
       },
       {
         path:"/orderPage",
-        element : <OrderPage />
+        element : <OrderPageController />
       },
       
     ],
