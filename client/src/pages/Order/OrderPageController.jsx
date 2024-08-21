@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import OrderPage from './OrderPage'
 import { callApiAction } from '../../redux/actions/commonAction'
+import {getUsersOrder} from '../../api/order.api'
 
 function OrderPageController({id}) {
     const [state, setState] = useState(null)
     const [loading, setLoading] = useState(false)
+    const {user} = useSelector(state => state)
     const dispatch = useDispatch()
 
     const fetchList = () => {
-        // setLoading(true)
-        // dispatch(callApiAction(
-            // async () => await fetchTeamMemberByIdApi({ id }),
-            // (response) => {
-                // setState(response)
-                // setLoading(false)
-            // },
-            // (err) => {
-                // setLoading(false)
-            // }
-        // ))
+        setLoading(true)
+        dispatch(callApiAction(
+            async () => await getUsersOrder( user?.data?.user?.id, user?.data?.jwt ),
+            (response) => {
+                setState(response)
+                setLoading(false)
+            },
+            (err) => {
+                setLoading(false)
+            }
+        ))
     }
     useEffect(() => {
         fetchList()
