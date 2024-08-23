@@ -3,7 +3,7 @@ let domain = "";
 
 switch (mode) {
   case "local":
-    domain = "http://localhost:1337/";
+    domain = process.env.REACT_APP_API_URL;
     break;
   default:
     domain = "/";
@@ -11,14 +11,14 @@ switch (mode) {
 
 const endpoints ={
   root:domain,
-  registerUser : `${domain}api/auth/local/register`,
-  updateUser : `${domain}api/users`,
-  confirmationEmail : `${domain}api/auth/send-email-confirmation`,
-  signIn : `${domain}api/auth/local`,
-  getUser : `${domain}api/users`,
-  sendEmail : `${domain}api/email`,
-  getAddress : `${domain}api/addresses`,
-  getOrder : `${domain}api/orders`
+  registerUser : `${domain}/auth/local/register`,
+  updateUser : `${domain}/users`,
+  confirmationEmail : `${domain}/auth/send-email-confirmation`,
+  signIn : `${domain}/auth/local`,
+  getUser : `${domain}/users`,
+  sendEmail : `${domain}/email`,
+  getAddress : `${domain}/addresses`,
+  getOrder : `${domain}/orders`
 }
 
 export default endpoints

@@ -66,7 +66,6 @@ function SignUpController() {
               callApiAction(
                   async () =>  await addUserApi(dataToBepassed),
                   (response) => {
-                    setLoading(false)
                     setFormData(defaultFormData)
                     updateUser(response?.data)
                   },
@@ -89,6 +88,7 @@ function SignUpController() {
                 sendConfirmationEmail(data?.user?.email)
                 },
                 (err) => {
+                  setLoading(false)
                 }
               )
             )
@@ -103,9 +103,11 @@ function SignUpController() {
             async () =>  await sendConfirmEmailApi(dataToBepassed),
               (response) => {
                 dispatch(callSnackBar(toTitleCase("Please Verify your email"), SNACK_BAR_VARIETNS.suceess))
+                setLoading(false)
                 navigate('/loginPage')
                 },
                 (err) => {
+                  setLoading(false)
                 }
               )
             )

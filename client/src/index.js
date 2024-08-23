@@ -13,7 +13,7 @@ root.render(
   <Provider store={store}>
     <SnackbarProvider autoHideDuration={2000} >
       <PersistGate loading={"loading"} persistor={persistor}>
-        <GoogleOAuthProvider clientId="863932158830-tjbu9gcpos7i812t5ive5rah4iehq2if.apps.googleusercontent.com">
+        <GoogleOAuthProvider clientId="104287949834-7cdgk89u5koaql027u4ul3bqt1kj0039.apps.googleusercontent.com">
           <App />
         </GoogleOAuthProvider>
     </PersistGate>

@@ -53,11 +53,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/product/:id",
-        element: <Product />,
+        element: <ProtectedRoute element={<Product />} />,
       },
       {
         path: "/create",
-        element:  <Create />,
+        element:  <ProtectedRoute element={<Create />} />,
       },
       {
         path: "/loginpage",
@@ -85,7 +85,7 @@ const router = createBrowserRouter([
       },
       {
         path:"/orderPage",
-        element : <OrderPageController />
+        element :  <ProtectedRoute element={<OrderPageController />}  />
       },
       
     ],

@@ -200,7 +200,6 @@ const Product = () => {
               </div>
               {
                 // (displaytimer && percentageval() < 100) &&
-              (displaytimer) &&
                 <button
                   className="add"
                   onClick={() =>
