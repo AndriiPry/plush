@@ -1014,6 +1014,10 @@ export interface ApiProductProduct extends Schema.CollectionType {
     >;
     productDetails: Attribute.Text;
     termsShippingReturn: Attribute.Text;
+    startDate: Attribute.DateTime;
+    endDate: Attribute.DateTime;
+    MinFundedquantity: Attribute.Integer;
+    total_funded: Attribute.Integer;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

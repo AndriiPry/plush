@@ -77,6 +77,18 @@
     },
     "termsShippingReturn": {
       "type": "text"
+    },
+    "startDate": {
+      "type": "datetime"
+    },
+    "endDate": {
+      "type": "datetime"
+    },
+    "MinFundedquantity": {
+      "type": "integer"
+    },
+    "total_funded": {
+      "type": "integer"
     }
   }
 }
