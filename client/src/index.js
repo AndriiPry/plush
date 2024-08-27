@@ -13,7 +13,7 @@ root.render(
   <Provider store={store}>
     <SnackbarProvider autoHideDuration={2000} >
       <PersistGate loading={"loading"} persistor={persistor}>
-        <GoogleOAuthProvider clientId="104287949834-7cdgk89u5koaql027u4ul3bqt1kj0039.apps.googleusercontent.com">
+        <GoogleOAuthProvider clientId={`${process.env.REACT_APP_CLIENT_ID}`}>
           <App />
         </GoogleOAuthProvider>
     </PersistGate>

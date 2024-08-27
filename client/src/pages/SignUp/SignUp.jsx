@@ -136,6 +136,7 @@ function SignUp({
                           <input
                             type="password"
                             name="password"
+                            placeholder='Password must contain lowercase, uppercase, digit and a special character'
                             autoComplete="new-password"
                             id="form-input-2"
                             disabled={loading}

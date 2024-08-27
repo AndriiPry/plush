@@ -38,7 +38,8 @@ const MyAccount = ({
           <div className="_tabsContainer">
             <div className="w-100 select-none bg-white">
               <div className="flex">
-                <a href="/account-settings" className="router-link-exact-active router-link-active _menuItem" aria-current="page">Account Settings</a>
+                <a href="/myAccount" className="router-link-exact-active router-link-active _menuItem" aria-current="page">Account Settings</a>
+                <a href="/orderPage" className="router-link-exact-active router-link-active _menuItem" aria-current="page">Orders</a>
               </div>
             </div>
           </div>
@@ -186,7 +187,6 @@ const MyAccount = ({
                 </div>
               
               <div className="_btnContainer">
-                <button className="_cancelBtn">Cancel</button>
                 <button className="_saveBtn" type='submit'>Update</button>
               </div>
             </div>

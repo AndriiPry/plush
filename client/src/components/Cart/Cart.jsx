@@ -6,11 +6,14 @@ import { removeItem, resetCart } from "../../redux/cartReducer";
 import { useDispatch } from "react-redux";
 import { makeRequest } from "../../makeRequest";
 import { loadStripe } from "@stripe/stripe-js";
+import { useNavigate } from "react-router-dom";
+import { Add, Remove } from "@mui/icons-material";
 
 const Cart = () => {
   const products = useSelector((state) => state.cart.products);
   const {user} = useSelector(state => state)
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const totalPrice = () => {
     let total = 0;
@@ -25,6 +28,9 @@ const Cart = () => {
   );
   const handlePayment = async () => {
     try {
+      if(!user.isLoggedIn) {
+        navigate('/loginPage')
+      }
       const stripe = await stripePromise;
       const res = await makeRequest.post("/orders", {
         data : {

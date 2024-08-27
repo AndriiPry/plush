@@ -105,7 +105,7 @@ function OTPVerifyier({
                           </Typography>
                         <div className="inputWrap">
                           <input
-                            type="number"
+                            type="text"
                             name="otp"
                             placeholder="Enter OTP"
                             id="otp"
