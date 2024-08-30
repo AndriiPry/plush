@@ -3,11 +3,12 @@ import SignUp from './SignUp'
 import { toTitleCase, validateEmail, validatePassword } from '../../utils/helper'
 import { useDispatch } from 'react-redux'
 import { callSnackBar } from '../../redux/actions/snackbarAction'
-import { SNACK_BAR_VARIETNS } from '../../utils/constants'
+import { actions, SNACK_BAR_VARIETNS } from '../../utils/constants'
 import { callApiAction } from '../../redux/actions/commonAction'
 import { addUserApi, sendConfirmEmailApi, updateUserApi } from '../../api/user.api'
 import { useNavigate } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode'
+import { signInAction } from '../../redux/actions/userReducerAction'
 
 function SignUpController() {
     const defaultFormData = {
@@ -66,7 +67,6 @@ function SignUpController() {
               callApiAction(
                   async () =>  await addUserApi(dataToBepassed),
                   (response) => {
-                    setLoading(false)
                     setFormData(defaultFormData)
                     updateUser(response?.data)
                   },
@@ -89,6 +89,7 @@ function SignUpController() {
                 sendConfirmationEmail(data?.user?.email)
                 },
                 (err) => {
+                  setLoading(false)
                 }
               )
             )
@@ -103,9 +104,11 @@ function SignUpController() {
             async () =>  await sendConfirmEmailApi(dataToBepassed),
               (response) => {
                 dispatch(callSnackBar(toTitleCase("Please Verify your email"), SNACK_BAR_VARIETNS.suceess))
+                setLoading(false)
                 navigate('/loginPage')
                 },
                 (err) => {
+                  setLoading(false)
                 }
               )
             )
@@ -154,24 +157,62 @@ function SignUpController() {
                 password: credentialResponse.credential,
             };
             
+            
     
             setLoading(true);
             await dispatch(callApiAction(
                 async () => await addUserApi(googleUserData),
                 (response) => {
                     setLoading(false);
+                    
                     if (response && response.data) {
                         setFormData(defaultFormData);
                         dispatch(callSnackBar("Signed up successfully", SNACK_BAR_VARIETNS.suceess))
-                        navigate('/loginPage')
+                        dispatch(signInAction(
+                          {
+                            identifier: googleUserData.email,
+                            password: googleUserData.password,
+                          },
+                          (err) => {
+                            setFormData(prevState => ({ ...prevState, err }));
+                            setLoading(false);
+                        },
+                        (response) => {
+                            dispatch({
+                                type: actions.SET_USER, 
+                                value: response,
+                            });
+            
+                            dispatch(callSnackBar('Signed in Successfully',SNACK_BAR_VARIETNS.suceess));
+                            navigate('/');
+                        }
+                        ))
                         
                     }
                 },
                 (err) => {
                     setLoading(false);
                     setFormData({ ...formData, err });
-                    if (err && err.status === 400 && err.message === "Email or Username are already taken") {
-                        dispatch(callSnackBar("You are already registered. Please sign in.", SNACK_BAR_VARIETNS.error));
+                    if (err && err === "Email or Username are already taken") {
+                      dispatch(signInAction(
+                        {
+                            identifier: googleUserData.email,
+                            password: googleUserData.password,
+                        },
+                        (err) => {
+                            setFormData(prevState => ({ ...prevState, err }));
+                            setLoading(false);
+                        },
+                        (response) => {
+                            dispatch({
+                                type: actions.SET_USER, 
+                                value: response,
+                            });
+            
+                            dispatch(callSnackBar('Signed in Successfully',SNACK_BAR_VARIETNS.suceess));
+                            navigate('/');
+                        }
+                    ));
                     } else {
                         dispatch(callSnackBar("Failed to sign in with Google", SNACK_BAR_VARIETNS.error));
                     }

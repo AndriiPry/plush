@@ -52,17 +52,15 @@ const Navbar = () => {
               <Link to="/MyAccount">
               <PersonOutlineOutlinedIcon />
             </Link>
-            <Link to="/orderPage">
-              <FeaturedPlayList />
-            </Link>
-            <div className="cartIcon" onClick={() => setOpen(!open)}>
-              <ShoppingCartOutlinedIcon />
-              <span>{products.length}</span>
-            </div>
+            
             <button onClick={handleLogout} className="link">Log Out</button>
 
               </>
             )}
+            <div className="cartIcon" onClick={() => setOpen(!open)}>
+              <ShoppingCartOutlinedIcon />
+              <span>{products.length}</span>
+            </div>
             <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
               {menuOpen ? <CloseIcon /> : <MenuIcon />}
             </div>

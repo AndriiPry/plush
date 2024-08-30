@@ -21,6 +21,7 @@ import { Verified, MailOutline, Bloodtype, KeyboardArrowUp, KeyboardArrowDown } 
 import { Link } from "react-router-dom";
 import { CenteredBox } from "./Boxes";
 import moment from "moment";
+import '../MyAccount/MyAccount.scss'
 
 function OrderPage({ setState, loading, state }) {
 
@@ -37,7 +38,28 @@ function OrderPage({ setState, loading, state }) {
 
   return (
     <>
-      {!loading && state && (
+    <div className="layout">
+    <div className="_container">
+     <main id="mainContent" className="_main">
+          <div className="_settingsMain">
+            <div className="_container _row _spaceBetween">
+              <div className="_row">
+                <h1 className="_title">Settings</h1>
+              </div>
+            </div>
+          </div>
+
+          <div className="_tabsContainer">
+            <div className="w-100 select-none bg-white">
+              <div className="flex">
+                <a href="/myaccount" className="router-link-exact-active router-link-active _menuItem" aria-current="page">Account Settings</a>
+                <a href="/orderPage" className="router-link-exact-active router-link-active _menuItem" aria-current="page">Orders</a>
+              </div>
+            </div>
+          </div>
+
+          <div className="_root">
+          {!loading && state && (
         <Box mt={3} mb={3}>
           {state.data.data && state.data.data.length > 0 ? (
             state.data.data.map((order) => (
@@ -169,6 +191,10 @@ function OrderPage({ setState, loading, state }) {
           <CircularProgress />
         </CenteredBox>
       )}
+          </div>
+        </main>
+      </div>
+      </div>
     </>
   );
 }

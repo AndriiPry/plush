@@ -8,7 +8,7 @@ module.exports =
                 to : 'vtajpatel735@gmail.com',
                 from : 'vtajpatel735@gmail.com',
                 subject : 'your OTP',
-                text : `andi mandi chandi${result.name}`,
+                text : `test${result.name}`,
             })
         }
         catch(err)

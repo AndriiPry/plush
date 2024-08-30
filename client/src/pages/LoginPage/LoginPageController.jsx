@@ -8,7 +8,7 @@ import useValidate from "../../hooks/useValidator";
 import { callSnackBar } from "../../redux/actions/snackbarAction";
 import { callApiAction } from "../../redux/actions/commonAction";
 import { toTitleCase } from "../../utils/helper";
-import { sendConfirmEmailApi } from "../../api/user.api";
+import { addUserApi, getUserByEmailApi, sendConfirmEmailApi } from "../../api/user.api";
 import { actions, SNACK_BAR_VARIETNS } from "../../utils/constants";
 import { jwtDecode } from "jwt-decode";
 
@@ -111,39 +111,83 @@ const LoginPageController = () => {
 
     //google log in
     const handleGoogleLoginSuccess = async (credentialResponse) => {
-        
-        try {
-            const decoded = jwtDecode(credentialResponse.credential);  
-            const { email } = decoded; // Extract email from decoded token
-            
-            setLoading(true);
-    
-            // Dispatch the sign-in action
-            dispatch(signInAction(
-                {
-                    identifier: email,
-                    password: credentialResponse.credential,
-                },
-                (err) => {
-                    setState(prevState => ({ ...prevState, err }));
-                    setLoading(false);
-                },
+        const decoded = jwtDecode(credentialResponse.credential);  
+        const { email } = decoded; // Extract email from decoded token
+        dispatch(
+            callApiAction(
+                async () =>  await getUserByEmailApi(email),
                 (response) => {
-                    dispatch({
-                        type: actions.SET_USER, 
-                        value: response,
-                    });
-    
-                    enqueueSnackbar('Signed in Successfully', { variant: "success" });
-                    navigate('/myaccount');
+                  if(response?.data?.length == 0) {
+                    const googleUserData = {
+                        email: decoded.email,
+                        username: decoded.name,
+                        password: credentialResponse.credential,
+                    };
+                    dispatch(callApiAction(
+                        async () => await addUserApi(googleUserData),
+                        (response) => {
+                            setLoading(false);
+                            if (response && response.data) {
+                                setState(defaultFormData);
+                                dispatch(callSnackBar("Signed up successfully", SNACK_BAR_VARIETNS.suceess))
+                                dispatch(signInAction(
+                                    {
+                                        identifier: googleUserData.email,
+                                        password: googleUserData.password,
+                                    },
+                                    (err) => {
+                                        setState(prevState => ({ ...prevState, err }));
+                                        setLoading(false);
+                                    },
+                                    (response) => {
+                                        dispatch({
+                                            type: actions.SET_USER, 
+                                            value: response,
+                                        })
+                                        dispatch(callSnackBar('Signed in Successfully',SNACK_BAR_VARIETNS.suceess));
+                                        navigate('/');
+                                    }
+                                ))
+                            }
+                        },
+                        (err) => {
+                            setLoading(false);
+                            setState(prevState => ({ ...prevState, err }));
+                        }
+                    ))
+                  }
+                  else {
+                    try {
+                        setLoading(true);                
+                        // Dispatch the sign-in action
+                        dispatch(signInAction(
+                            {
+                                identifier: email,
+                                password: credentialResponse.credential,
+                            },
+                            (err) => {
+                                setState(prevState => ({ ...prevState, err }));
+                                setLoading(false);
+                            },
+                            (response) => {
+                                dispatch({
+                                    type: actions.SET_USER, 
+                                    value: response,
+                                });
+                
+                                enqueueSnackbar('Signed in Successfully', { variant: "success" });
+                                navigate('/myaccount');
+                            }
+                        ));
+                
+                    } catch (error) {
+                        console.error("Error handling Google sign-in:", error);
+                        dispatch(callSnackBar("Failed to sign in with Google", SNACK_BAR_VARIETNS.error));
+                        setLoading(false);
+                    }
+                  }
                 }
-            ));
-    
-        } catch (error) {
-            console.error("Error handling Google sign-in:", error);
-            dispatch(callSnackBar("Failed to sign in with Google", SNACK_BAR_VARIETNS.error));
-            setLoading(false);
-        }
+            ))
     };
     
     
