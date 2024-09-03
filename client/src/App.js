@@ -57,7 +57,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/create",
-        element:  <ProtectedRoute element={<Create />} />,
+        element: <Create />,
       },
       {
         path: "/loginpage",
