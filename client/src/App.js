@@ -19,6 +19,7 @@ import CreatePasswordController from "./pages/PasswordReset/CreatePasswordContro
 import ProtectedRoute from "./ProtectedRoute"; 
 import OrderPageController from "./pages/Order/OrderPageController";
 import MyAccountController from "./pages/MyAccount/MyAccountController";
+import ReactGA from 'react-ga4';
 
 
 const Layout = () => {
@@ -93,6 +94,8 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  ReactGA.initialize('G-JHL90JXZCM')
+
   return (
     <div>
       <RouterProvider router={router} />
