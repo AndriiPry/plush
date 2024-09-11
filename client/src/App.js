@@ -20,6 +20,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import OrderPageController from "./pages/Order/OrderPageController";
 import MyAccountController from "./pages/MyAccount/MyAccountController";
 import ReactGA from 'react-ga4';
+import CreatePageMain from "./create-page-folder/src/CreatePageMain";
 
 
 const Layout = () => {
@@ -58,7 +59,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/create",
-        element: <Create />,
+        element: <CreatePageMain />,
       },
       {
         path: "/loginpage",
@@ -94,7 +95,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  ReactGA.initialize('G-JHL90JXZCM')
+  ReactGA.initialize('G-JETRE4C2XP')
 
   return (
     <div>
