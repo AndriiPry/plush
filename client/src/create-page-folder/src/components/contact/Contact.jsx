@@ -49,7 +49,7 @@ const Contact = () => {
   return (
     <motion.div
       ref={ref}
-      className="contact"
+      className="contact-create"
       variants={variants}
       initial="initial"
       whileInView="animate"
