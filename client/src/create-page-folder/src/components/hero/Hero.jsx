@@ -1,6 +1,6 @@
 import "./hero.scss";
 import { motion } from "framer-motion";
-
+import heroImage from "../../../public/hero.png"
 const textVariants = {
   initial: {
     x: -500,
@@ -74,7 +74,7 @@ const Hero = () => {
         Writer Content Creator Influencer
       </motion.div>
       <div className="imageContainer">
-        <img src="/hero.png" alt="" />
+        <img src={heroImage} alt="" />
       </div>
     </div>
   );
